@@ -46,7 +46,7 @@ async def list_tanks(db: AsyncSession = Depends(get_db)) -> List[TankDTO]:
 @router.post(
     "/tanks/{tank_id}/profile",
     summary="Asignar perfil a tanque",
-    status_code=204,
+    status_code=200,
 )
 async def assign_profile(
     data: ProfileAssignment,
@@ -54,6 +54,7 @@ async def assign_profile(
     db: AsyncSession = Depends(get_db),
 ) -> None:
     await fermentation_service.assign_profile(db, tank_id, data.profile_name)
+    return {"detail": "Profile assigned"}
 
 
 @router.get(
