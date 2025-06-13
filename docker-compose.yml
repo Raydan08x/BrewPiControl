@@ -16,6 +16,7 @@ services:
       - mqtt
     volumes:
       - ./backend/.env:/app/.env
+      - ./docs/DB_Beersmith3:/app/docs/DB_Beersmith3
 
   frontend:
     build: ./frontend
