@@ -12,6 +12,7 @@
 set -euo pipefail
 
 REPO_URL="https://github.com/tuusuario/BrewPiControl.git"
+REPO_URL="https://github.com/Raydan08x/BrewPiControl.git"
 INSTALL_DIR="$HOME/BrewPiControl"
 
 print_step() {
