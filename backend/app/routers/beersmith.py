@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from app.beersmith.importer import scan_beersmith_db
 
-router = APIRouter(prefix="/api/beersmith", tags=["BeerSmith"])
+router = APIRouter(prefix="/beersmith", tags=["BeerSmith"])
 
 @router.get("/summary", summary="Resumen de archivos BeerSmith")
 def beersmith_summary():
