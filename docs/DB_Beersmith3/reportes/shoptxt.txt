@@ -1,0 +1,12 @@
+
+Name: $NAME
+Type: $TYPE
+
+Amount: $AMOUNT $UNITS
+Price: $PRICE
+Inventory: $inventory
+
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

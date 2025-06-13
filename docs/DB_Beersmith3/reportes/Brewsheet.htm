@@ -1,0 +1,197 @@
+<html>
+<head>
+<title>$NAME</title>
+<style type="text/css">
+body { font-size: $PRINT_SCALE%;font-family:"Arial", Helvetica, sans-serif; }
+table { font-size: $PRINT_SCALE%; font-family:"Arial", Helvetica, sans-serif; }
+</style>
+</head>
+<body>
+  <table border="0" width="100%" bgcolor="#C0C0C0">
+    <tr>
+      <td><span style="font-size:2.2em;"><font color="#000080"><i>Brewing Steps: $NAME</i></font></span></td>
+    </tr>
+    <tr>
+      <td><font color="#000080"><i>$STYLE_NAME</i></font></td>
+    </tr>
+  </table>
+  <table border="0" width="97%">
+    <tr>
+      <td width="40%"><b><i>Type:</i></b> $TYPE</td>
+      <td width="52%"><b><i>Date:</i></b> $DATE</td>
+    </tr>
+    <tr>
+      <td width="40%"><b><i>Batch Size 
+		(fermenter):</i></b> $DISPLAY_BATCH_SIZE</td>
+      <td width="52%"><b><i>Brewer:</i></b> $BREWER</td>
+    </tr>
+    <tr>
+      <td width="40%"><b><i>Boil Size:</i></b> $DISPLAY_BOIL_SIZE</td>
+      <td width="52%"><b><i>Asst Brewer:</i></b> $ASST_BREWER</td>
+    </tr>
+    <tr>
+      <td width="40%"><b><i>Boil Time:</i></b> $BOIL_TIME min</td>
+      <td width="52%"><b><i>Equipment:</i></b> $EQUIPMENT</td>
+    </tr>
+    <tr>
+      <td width="40%"><b><i>Final Bottling Volume:</i></b> $BOTTLING_VOLUME</td>
+      <td width="52%"><b><i>Brewhouse Efficiency:</i></b> $EFFICIENCY</td>
+    </tr>
+    <tr>
+      <td width="40%"><b><i>Fermentation:</i></b> $AGE_NAME</td>
+      <td width="52%"><b><i>Taste Rating(out of 50):</i></b> $TASTE_RATING</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b><i>Taste Notes:</i></b> $TASTE_NOTES</td>
+    </tr>
+  </table>
+<table border="1" width="97%" bordercolor="#000000">
+  <tr>
+    <td colspan="2" bgcolor="#C0C0C0" height="28"><p align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Prepare for Brewing</b></font></span></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%"><p align="left">$YEAST_STARTERS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Clean and Prepare Brewing Equipment</td>
+  </tr>
+  <tr>
+    <td width="4%">
+	&nbsp;</td>
+    <td width="95%">Total Water Needed: $TOTAL_WATER</td>
+  </tr>
+  <tr>
+    <td width="4%">
+	&nbsp;</td>
+    <td width="95%">Mash Water Acid Treatment: $MASH_ACID_TEXT</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$WATER_PREP</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#C0C0C0" height="28"><p align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Mash or Steep Grains</b></font></span></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%"align="left">$MASH_INGREDIENTS $STEEP_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$MASH_STEPS</td>
+  </tr>
+  <tr>
+    <td width="4%">
+	&nbsp;</td>
+    <td width="95%">Sparge Water Acid Treatment: $SPARGE_ACID_TEXT</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$SPARGE_STEPS<br>
+      $FIRST_WORT_HOPS</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#C0C0C0" height="28"><p align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Boil Wort</b></font></span></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%" align="left">Add water to achieve boil volume of $DISPLAY_BOIL_SIZE</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%" align="left">Estimated pre-boil gravity is $PRE_BOIL_OG</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%" align="left">$BOIL_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$STEEP_HOPS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Estimated Post Boil Vol: $POST_BOIL_VOLUME and Est Post Boil Gravity: $EST_OG</td>
+  </tr>
+  </table>
+<table border="1" width="97%" bordercolor="#000000">
+  <tr>
+    <td colspan="2" bgcolor="#C0C0C0" height="28"><p align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Cool and Prepare Fermentation</b></font></span></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%" align="left">Cool wort to fermentation temperature</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Transfer wort to fermenter</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Add water to achieve final volume of $DISPLAY_BATCH_SIZE</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$FERMENT_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Measure Actual Original Gravity _______&nbsp;&nbsp;&nbsp;&nbsp; (Target: $EST_OG)</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Measure Actual Batch Volume _______&nbsp;&nbsp;&nbsp;&nbsp; (Target: $DISPLAY_BATCH_SIZE)</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#C0C0C0" height="28" align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Fermentation</b></font></span></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%" align="left">$PRIMARY_STEP $PRIMARY_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$SECONDARY_STEP $SECONDARY_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$TERTIARY_STEP</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$BULK_AGE_STEP</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Dry Hop and Prepare for Bottling/Kegging $BOTTLING_INGREDIENTS</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Measure Final Gravity: _________&nbsp; (Estimate: $EST_FG)</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Date Bottled/Kegged: $BOTTLING_DATE - Carbonation: $DISPLAY_CARBONATION</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">Age beer for $AGE days at $DISPLAY_AGE_TEMP</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="95%">$END_DATE - Drink and enjoy!</td>
+  </tr>
+  <tr>
+    <td  colspan="2" bgcolor="#C0C0C0" align="center"><span style="font-size:1.3em;"><font color="#FFFFFF"><b>Notes</b></font></span></td>
+  </tr>
+  <tr>
+    <td  colspan="2">$NOTES</td>
+  </tr>
+  <tr>
+    <td  colspan="2"><p align="right"><i><span style="font-size:0.8em;">Created with <a href="http://www.beersmith.com">BeerSmith</a></span></i></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+
+Name: $NAME
+Description: $DESCRIPTION
+Type: $TYPE
+
+Priority: $PRIORITY
+Start Date: $START_DATE
+End Date: $END_DATE
+
+Notes: 
+$NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

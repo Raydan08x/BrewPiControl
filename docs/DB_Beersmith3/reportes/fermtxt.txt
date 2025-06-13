@@ -1,0 +1,26 @@
+Name: $NAME
+Type: $TYPE
+
+Primary Fermentation:
+Days in Primary: $PRIMARY_AGE days
+Primary Start Temperature: $DISPLAY_PRIMARY_TEMP
+Primary End Temperature: $DISPLAY_PRIMARY_END_TEMP
+
+Secondary Fermenation:
+Days in Secondary: $SECONDARY_AGE days
+Secondary Start Temperature: $DISPLAY_SECONDARY_TEMP
+Secondary End Temperature: $DISPLAY_SECONDARY_END_TEMP
+
+Tertiary Fermentation:
+Days in Tertiary Fermenter: $TERTIARY_AGE days
+Tertiary Start Temperature: $DISPLAY_TERTIARY_TEMP
+Tertiary End Temperature: $DISPLAY_TERTIARY_END_TEMP
+
+Age for: $AGE days
+Starting Temperature: $DISPLAY_AGE_START_TEMP
+Ending Temperature: $DISPLAY_AGE_END_TEMP
+
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

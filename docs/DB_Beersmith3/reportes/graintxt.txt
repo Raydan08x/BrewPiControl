@@ -1,0 +1,21 @@
+
+Name: $NAME
+Type: $TYPE
+Origin: $ORIGIN
+Supplier: $SUPPLIER
+
+Yield: $YIELD %
+Potential: $POTENTIAL
+Color: $DISPLAY_COLOR
+Max in Batch: $MAX_IN_BATCH %
+Moisture: $MOISTURE %
+Protein: $PROTEIN %
+Coarse Fine Difference: $COARSE_FINE_DIFF %
+Diastatic Power: $DIASTATIC_POWER %
+
+Recommend Mash: $RECOMMEND_MASH
+Inventory: $INVENTORY
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+--------------------------------------------------------------------

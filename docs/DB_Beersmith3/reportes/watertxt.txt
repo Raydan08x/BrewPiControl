@@ -1,0 +1,24 @@
+
+Name: $NAME
+PH: $PH
+
+Ions:
+Calcium: $CALCIUM
+Magnesium: $MAGNESIUM
+Sodium: $SODIUM
+Sulfate: $SULFATE
+Chloride: $CHLORIDE
+Bicarbonate: $BICARBONATE
+
+Additions:
+Gypsum: $gypsum
+Salt: $salt
+Epsom Salts: $epsom
+Baking Soda: $bake
+Chalk: $chalk
+Calcium Chloride: $CALC
+
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

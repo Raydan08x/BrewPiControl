@@ -1,0 +1,98 @@
+<html xmlnx="http://wwww.w3.org/1999/xhtml">
+<head>
+<title>$NAME</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css">
+body { font-size: $PRINT_SCALE%; }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+  <div class="logo">
+   <h1>$NAME</h1>
+   <h2>$STYLE_NAME ($STYLE_NUMBER $STYLE_LETTER)</h2>
+   </div>
+ </div>
+ <div class="glass"><img src='$GLASS' style="width:5.3em; height:9em;" /></div>
+ <div class="col1">
+ <span class="item">Type:</span> $TYPE<br>
+ <span class="item">Batch Size:</span> $DISPLAY_BATCH_SIZE<br>
+ <span class="item">Boil Size:</span> $DISPLAY_BOIL_SIZE<br>
+ <span class="item">Boil Time:</span> $BOIL_TIME min<br>
+ <span class="item">End of Boil Vol:</span> $POST_BOIL_VOLUME<br>
+ <span class="item">Final Bottling Vol:</span> $BOTTLING_VOLUME<br>
+ </div>
+ <div class="col2">
+ <span class="item">Date:</span> $DATE<br>
+ <span class="item">Version:</span> $VERSION<br>
+ <span class="item">Brewer:</span> $BREWER<br>
+ <span class="item">Asst Brewer:</span> $ASST_BREWER<br>
+ <span class="item">Equipment:</span> $EQUIPMENT<br>
+  <span class="item">Fermentation:</span> $AGE_NAME<br>
+ <span class="item">Taste Rating:</span> $TASTE_RATING<br>
+ </div>
+ <div class="full">
+ <span class="item">Taste Notes:</span> $TASTE_NOTES<br>
+ </div>
+ <div class="full">
+ $INGREDIENTS
+ </div>
+ <div class="full">
+ <h3>Gravity, Alcohol Content and Color</h3>
+ <div class="col1">
+ <span class="item">Est Original Gravity:</span> $EST_OG<br>
+ <span class="item">Est Final Gravity:</span> $EST_FG<br>
+ <span class="item">Estimated Alcohol by Vol:</span> $EST_ABV<br>
+ <span class="item">Bitterness:</span> $IBU<br>
+ <span class="item">Est Color:</span> $EST_COLOR
+ <span class="item">Est Calories:</span> $EST_CALORIES
+ </div>
+ <div class="col2">
+ <span class="item">Measured Original Gravity:</span> $DISPLAY_OG<br>
+ <span class="item">Measured Final Gravity:</span> $DISPLAY_FG<br>
+ <span class="item">Actual Alcohol by Vol:</span> $ABV<br>
+ <span class="item">Measured Calories:</span> $CALORIES
+ </div>
+ </div>
+<div class="full">
+<h3>Grain Steeping and Boil Profile</h3>
+ <div class="col1">
+ <span class="item">Steep Water Volume:</span> $STEEP_VOL<br />
+ <span class="item">Steep Grain Weight:</span> $STEEP_GRAIN_WT<br />
+ <span class="item">Steep Time:</span> $STEEP_TIME<br />
+ <span class="item">Steep Temp:</span> $STEEP_TEMP<br />
+ </div>
+ <div class="col2">
+ <span class="item">Boil Fermentables Weight:</span> $BOIL_FERM_WT<br>
+ <span class="item">Boil Fermentables Volume:</span> $BOIL_FERM_VOL<br>
+ <span class="item">Est Boil Water Addition:</span> $BOIL_WATER_ADD<br>
+ </div>
+ </div>
+<div class="full">
+<h3>Carbonation and Storage</h3>
+ <div class="col1">
+ <span class="item">Carbonation Type:</span> $CARBONATION_TYPE<br>
+ <span class="item">Pressure/Weight:</span> $CARBONATION_PRESS<br>
+ <span class="item">Keg/Bottling Temperature:</span> $DISPLAY_CARB_TEMP<br>
+ <span class="item">Fermentation:</span> $AGE_NAME<br>
+ <span class="item">Fermenter:</span> $FERMENTER<br>
+ </div>
+ <div class="col2">
+ <span class="item">Volumes of CO2:</span> $CARBONATION<br>
+ <span class="item">Carbonation Est:</span> $CARBONATION_USED<br>
+ <span class="item">Carbonation (from Meas Vol):</span> $MEASURED_CARB_AMOUNT<br>
+ <span class="item">Age for:</span> $AGE days<br>
+ <span class="item">Storage Temperature:</span> $DISPLAY_AGE_TEMP
+ </div>
+ </div>
+<div class="full">
+<h3>Notes</h3>
+$NOTES
+</div>
+<p />
+<p align="right"><i><font size="2">Created with </font> <font size="2"><a href="http://www.beersmith.com">BeerSmith</a></font></i>
+</div>
+</body>
+</html>

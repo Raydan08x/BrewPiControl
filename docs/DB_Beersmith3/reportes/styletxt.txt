@@ -1,0 +1,21 @@
+
+Name: $NAME
+Category: $CATEGORY
+Style Guide: $STYLE_GUIDE
+Style Number: $DISPLAY_CAT_NUM
+Type: $TYPE
+
+Color Range: $COLOR_RANGE
+Color Range: $OG_RANGE
+Final Gravtity Range: $FG_RANGE
+Bitterness Range: $IBU_RANGE
+Alcohol by Volume Range: $ABV_RANGE
+Carbonation Range: $CARB_RANGE
+
+Profile: $PROFILE
+Notes: $NOTES
+Ingredients: $INGREDIENTS
+Examples: $EXAMPLES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

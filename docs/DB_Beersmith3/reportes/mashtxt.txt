@@ -1,0 +1,16 @@
+
+Name: $NAME
+Baseline Grain Weight: $GRAIN_WEIGHT
+Grain Temperature: $DISPLAY_GRAIN_TEMP
+Tun Weight: $DISPLAY_TUN_WEIGHT
+Tun Temperature: $DISPLAY_TUN_TEMP
+PH: $PH
+Sparge Temperature: $DISPLAY_SPARGE_TEMP
+Batch Sparge: $BATCH_SPARGE_YESNO
+
+$MASH_STEPS
+
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+------------------------------------------------------------------------

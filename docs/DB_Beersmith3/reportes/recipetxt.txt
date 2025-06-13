@@ -1,0 +1,37 @@
+
+BeerSmith 2 Recipe Printout - http://www.beersmith.com
+Recipe: $NAME
+Brewer: $BREWER
+Asst Brewer: $ASST_BREWER
+Style: $STYLE_NAME
+TYPE: $TYPE
+Taste: ($TASTE_RATING) $TASTE_NOTES
+
+Recipe Specifications
+--------------------------
+Boil Size: $DISPLAY_BOIL_SIZE
+Post Boil Volume: $POST_BOIL_VOLUME
+Batch Size (fermenter): $DISPLAY_BATCH_SIZE   
+Bottling Volume: $BOTTLING_VOLUME
+Estimated OG: $EST_OG
+Estimated Color: $EST_COLOR
+Estimated IBU: $IBU
+Brewhouse Efficiency: $EFFICIENCY %
+Est Mash Efficiency: $EST_MASH_EFFICIENCY
+Boil Time: $BOIL_TIME Minutes
+
+Ingredients:
+------------
+$INGREDIENTS
+
+Mash Schedule: $MASH_NAME
+Total Grain Weight: $GRAIN_WEIGHT
+----------------------------
+$MASH_STEPS
+Sparge: $SPARGE_STEPS
+Notes:
+------
+$NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+-------------------------------------------------------------------------------------

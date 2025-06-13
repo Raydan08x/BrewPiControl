@@ -1,0 +1,12 @@
+Name: $NAME
+Type: $TYPE
+
+Details:
+Primer Name: $PRIMER_NAME
+Carbonation Rate: $CARB_RATE relative to corn sugar
+Temperature: $TEMPERATURE
+
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

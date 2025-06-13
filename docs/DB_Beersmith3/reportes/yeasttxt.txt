@@ -1,0 +1,20 @@
+
+Name: $NAME
+Product ID: $PRODUCT_ID
+Laboratory: $LABORATORY
+Type: $TYPE
+Form: $FORM
+
+Flocculation: $FLOCCULATION
+Attenuation: $ATTENUATION %
+Min Fermentation Temperature: $DISP_MIN_TEMP
+Max Fermentation Temperature: $DISP_MAX_TEMP
+Times Cultured: $TIMES_CULTURED
+Culture Date: $CULTURE_DATE
+Max Reuse: $MAX_REUSE
+Inventory: $INVENTORY
+Best For: $BEST_FOR
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+---------------------------------------------------------------------

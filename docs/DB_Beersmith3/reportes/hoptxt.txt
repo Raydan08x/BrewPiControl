@@ -1,0 +1,14 @@
+
+Name: $NAME
+Origin: $ORIGIN
+Type: $TYPE
+Form: $FORM
+
+Alpha: $ALPHA %
+Beta: $BETA %
+Hop Stability Index: $HSI %
+Inventory: $INVENTORY
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+----------------------------------------------------------------

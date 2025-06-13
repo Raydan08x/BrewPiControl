@@ -1,0 +1,22 @@
+
+Equipment Profile: $NAME
+Batch Size: $DISPLAY_BATCH_SIZE
+
+Mash Tun Volume: $DISPLAY_TUN_VOLUME
+Mash Tun Weight: $DISPLAY_TUN_WEIGHT
+Mash Tun Specific Heat: $TUN_SPECIFIC_HEAT 
+Lauter Tun Deadspace: $DISPLAY_LAUTER_DEADSPACE
+
+Boil Size: $DISPLAY_BOIL_SIZE
+Boil Time: $BOIL_TIME min
+Evaporation Rate: $EVAP_RATE %
+Calculate Boil Size: $CALC_BOIL_VOLUME
+Kettle Top Up Water: $DISPLAY_TOP_UP_KETTLE
+Hop Utilization Adjustment: $HOP_UTILIZATION %
+
+Trub/Chiller Loss: $DISPLAY_TRUB_CHILLER_LOSS
+Cooling Loss: $COOLING_LOSS_PCT
+Top Up Water into Fermenter: $DISPLAY_TOP_UP_WATER
+
+Created with BeerSmith - http://www.beersmith.com
+----------------------------------------------------------------

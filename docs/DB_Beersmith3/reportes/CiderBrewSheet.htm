@@ -1,0 +1,89 @@
+<html xmlnx="http://wwww.w3.org/1999/xhtml">
+<head>
+<title>$NAME</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css">
+body { font-size: $PRINT_SCALE%; }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+  <div class="logo">
+   <h1>$NAME</h1>
+   <h2>$STYLE_NAME ($STYLE_NUMBER $STYLE_LETTER)</h2>
+   </div>
+ </div>
+  <div class="glass"><img src='$GLASS' style="width:5.3em; height:9em;"/></div>
+ <div class="col1">
+ <span class="item">Type:</span> $TYPE<br>
+ <span class="item">Batch Size:</span> $DISPLAY_BATCH_SIZE<br>
+ <span class="item">Final Bottling Vol:</span> $BOTTLING_VOLUME<br>
+ <span class="item">Fermentation:</span> $AGE_NAME<br>
+ <span class="item">Est Orig Gravity:</span> $EST_OG<br>
+ <span class="item">Est Alcohol by Volume:</span> $EST_ABV<br>
+ <span class="item">Honey Percent:</span> $PCT_HONEY %<br>
+ </div>
+ <div class="col2">
+ <span class="item">Date:</span> $DATE<br>
+ <span class="item">Version:</span> $VERSION<br>
+ <span class="item">Age in Days:</span> $BATCH_AGE<br />
+ <span class="item">Brewer:</span> $BREWER<br>
+ <span class="item">Asst Brewer:</span> $ASST_BREWER<br>
+ <span class="item">Equipment:</span> $EQUIPMENT<br />
+  <span class="item">Taste Rating:</span> $TASTE_RATING
+ <br />
+ </div>
+ <div class="full">
+ <span class="item">Taste Notes:</span> $TASTE_NOTES<br>
+ </div>
+ 
+ <h3>Prepare Yeast and Water</h3>
+ <ul class="checklist">
+ <li>$YEAST_STARTERS</li>
+ <li>Clean and Prepare Equipment</li>
+ <li>Primary Fermentables Weight: $PRIMARY_FERM_WT</li>
+ <li>Primary Fermentables Vol: $PRIMARY_FERM_VOL</li>
+ <li>Primary Water Addition: $PRIMARY_WATER_ADD</li>
+ <li>$WATER_PREP</li>
+ </ul>
+$IF_HAS_BOIL_ING
+<h3>Boil Ingredients</h3>
+<ul class="checklist">
+<li>Add water to achieve boil volume of $DISPLAY_BOIL_SIZE</li>
+</ul>
+$BOIL_INGREDIENTS
+$STEEP_HOPS
+<ul class="checklist">
+<li>Estimated Post Boil Vol: $POST_BOIL_VOLUME and Est Post Boil Gravity: $EST_OG</li>
+</ul>
+$ENDIF
+$FERMENT_INGREDIENTS
+<ul class="checklist">
+<li>Measure Actual Original Gravity _______&nbsp;&nbsp;&nbsp;&nbsp; (Target: $EST_OG)</li>
+<li>Add water if needed to achieve final volume of $DISPLAY_BATCH_SIZE</li>
+<li>Measure Actual Batch Volume _______&nbsp;&nbsp;&nbsp;&nbsp; (Target: $DISPLAY_BATCH_SIZE)</li>
+</ul>
+<h3>Fermentation</h3>
+<ul class="checklist">
+<li>Estimated 1/3 Sugar Break: $ONE_THIRD_BREAK</li>
+<li>Estimated 2/3 Sugar Break: $TWO_THIRD_BREAK</li>
+<li>$PRIMARY_STEP $PRIMARY_INGREDIENTS</li>
+<li>$SECONDARY_STEP $SECONDARY_INGREDIENTS</li>
+<li>$TERTIARY_STEP</li>
+<li>$BULK_AGE_STEP</li>
+</ul>
+<h3>Dry Hop and Bottle/Keg</h3>
+$BOTTLING_INGREDIENTS
+<ul class="checklist">
+<li>Measure Final Gravity: _________&nbsp; (Estimate: $EST_FG)</li>
+<li>Date Bottled/Kegged: $BOTTLING_DATE - Carbonation: $DISPLAY_CARBONATION</li>
+<li>Age beverage for $AGE days at $DISPLAY_AGE_TEMP</li>
+<li>$END_DATE - Drink and enjoy!</li>
+</ul>
+<h3>Notes</h3>
+$NOTES
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+Name: $NAME
+Type: $TYPE
+Use for: $USE_FOR
+Amount: $DISPLAY_AMOUNT
+For Batch Size: $BATCH_SIZE
+Add To: $USE
+Time: $DISPLAY_TIME
+Inventory: $INVENTORY
+Notes: $NOTES
+
+Created with BeerSmith - http://www.beersmith.com
+----------------------------------------------------------------
