@@ -55,16 +55,21 @@ async def item_transactions(lot_number: str, db: AsyncSession = Depends(get_db))
 async def import_bulk(
     file: UploadFile = File(...),
     db: AsyncSession = Depends(get_db),
-) -> dict[str, str]:  # noqa: D401
-    """Importación masiva de inventario.
-
+) -> dict:
+    """
+    Importación masiva de inventario.
     El archivo debe contener columnas mínimas definidas en importer.REQUIRED_COLUMNS.
     Devuelve resumen de filas insertadas y errores ignorados.
+    Respuesta:
+        {
+            "inserted": int,
+            "skipped": [
+                {"row": int, "lot_number": str, "error": str}, ...
+            ]
+        }
     """
-
     contents = await file.read()
     from app.inventory.importer import ImportErrorReport, parse_upload  # local para evitar ciclo
-
     try:
         rows = await parse_upload(file.filename, contents)
     except ImportErrorReport as exc:
@@ -73,13 +78,17 @@ async def import_bulk(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     inserted = 0
-    skipped: list[str] = []
-    for row in rows:
+    skipped = []
+    for idx, row in enumerate(rows):
         try:
             await inventory_service.create_item(db, ItemCreate(**row))
             inserted += 1
-        except Exception as err:  # pylint: disable=broad-except
-            skipped.append(f"{row.get('lot_number')}: {err}")
+        except Exception as err:
+            skipped.append({
+                "row": idx + 1,
+                "lot_number": row.get("lot_number", ""),
+                "error": str(err)
+            })
     return {"inserted": inserted, "skipped": skipped}
 
 
