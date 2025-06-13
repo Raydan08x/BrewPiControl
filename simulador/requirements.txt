@@ -1,2 +1,2 @@
-asyncio-mqtt==0.14.0
-python-dotenv==1.0.1
+paho-mqtt==2.0.0
+python-dotenv==2.0.0
