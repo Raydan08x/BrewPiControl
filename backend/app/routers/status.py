@@ -22,7 +22,3 @@ async def status() -> dict[str, str]:
 @router.get("/status/ping", summary="Ping healthcheck", tags=["Status"])
 async def ping() -> dict:
     return {"pong": True}
-
-    """
-
-    return {"status": "ok"}
