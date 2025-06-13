@@ -18,9 +18,9 @@ load_dotenv()
 class Settings(BaseModel):
     """Modelo de configuración global usando Pydantic."""
 
-    postgres_user: str = Field(env="POSTGRES_USER")
-    postgres_password: str = Field(env="POSTGRES_PASSWORD")
-    postgres_db: str = Field(env="POSTGRES_DB")
+    postgres_user: str = Field(default="brewadmin", env="POSTGRES_USER")
+    postgres_password: str = Field(default="brewpass", env="POSTGRES_PASSWORD")
+    postgres_db: str = Field(default="brewpi", env="POSTGRES_DB")
     postgres_host: str = Field(env="POSTGRES_HOST", default="database")
     postgres_port: int = Field(env="POSTGRES_PORT", default=5432)
 
