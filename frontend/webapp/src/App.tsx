@@ -8,6 +8,7 @@ import { Equipment } from './components/views/Equipment';
 import { Sensors } from './components/views/Sensors';
 import { BrewingTrainView } from './components/brewing/BrewingTrainView';
 import { FermentationView } from './components/fermentation/FermentationView';
+import { Processes } from './components/views/Processes';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -43,16 +44,7 @@ function App() {
       case 'sensors':
         return <Sensors />;
       case 'processes':
-        return (
-          <div className="p-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Control de Procesos
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-4">
-              Gestión avanzada de procesos de elaboración...
-            </p>
-          </div>
-        );
+        return <Processes />;
       case 'devices':
         return (
           <div className="p-6">
