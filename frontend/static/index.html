@@ -3,39 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HMI BrewPi Control</title>
-  <style>
-    /* Estilos básicos para el lienzo SCADA */
-    body { margin: 0; font-family: Arial, sans-serif; }
-    #canvas { width: 100vw; height: 100vh; background: #1e1e1e; }
-  </style>
+  <title>BrewPi Control – HMI</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Canvas principal donde se dibujará la planta -->
-  <canvas id="canvas"></canvas>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="bg-gray-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold">BrewPi Control</h1>
+      <nav class="space-x-6 hidden sm:block">
+        <a href="#dashboard" class="hover:text-amber-400">Dashboard</a>
+        <a href="#fermentation" class="hover:text-amber-400">Fermentación</a>
+        <a href="#logs" class="hover:text-amber-400">Logs</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Main content -->
+  <main class="flex-1 overflow-y-auto">
+    <!-- Dashboard cards -->
+    <section id="dashboard" class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center">
+        <span class="text-sm uppercase text-gray-400">Procesos Activos</span>
+        <span id="active-processes" class="text-4xl font-extrabold mt-2">–</span>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center">
+        <span class="text-sm uppercase text-gray-400">Dispositivos Online</span>
+        <span id="online-devices" class="text-4xl font-extrabold mt-2">–</span>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center">
+        <span class="text-sm uppercase text-gray-400">Sensores Totales</span>
+        <span id="total-sensors" class="text-4xl font-extrabold mt-2">–</span>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center">
+        <span class="text-sm uppercase text-gray-400">Alarmas</span>
+        <span id="alarms-count" class="text-4xl font-extrabold mt-2">–</span>
+      </div>
+    </section>
+
+    <!-- Canvas placeholder for detailed HMI -->
+    <section id="fermentation" class="max-w-7xl mx-auto px-4 py-8">
+      <h2 class="text-xl font-semibold mb-4">Vista de Planta</h2>
+      <div class="relative w-full" style="aspect-ratio: 16/9;">
+        <canvas id="canvas" class="absolute inset-0 w-full h-full bg-gray-950 rounded-lg"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <!-- Simple script to fill dashboard with dummy data -->
   <script>
-    // Script mínimo para inicializar el canvas
+    // Datos ficticios de ejemplo; se reemplazarán con lecturas en tiempo real vía API/MQTT.
+    const sample = {
+      activeProcesses: 2,
+      onlineDevices: 3,
+      totalSensors: 4,
+      alarms: 1
+    };
+    document.getElementById('active-processes').textContent = sample.activeProcesses;
+    document.getElementById('online-devices').textContent = sample.onlineDevices;
+    document.getElementById('total-sensors').textContent = sample.totalSensors;
+    document.getElementById('alarms-count').textContent = sample.alarms;
+
+    // Canvas placeholder
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
       draw();
     }
-
     window.addEventListener('resize', resize);
-
     function draw() {
-      // Limpiamos y dibujamos un placeholder
-      ctx.fillStyle = '#1e1e1e';
+      ctx.fillStyle = '#0f172a';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#fff';
-      ctx.font = '24px sans-serif';
-      ctx.fillText('BrewPi Control HMI – Placeholder', 50, 50);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '20px sans-serif';
+      ctx.fillText('HMI en construcción…', 20, 40);
     }
-
     resize();
   </script>
 </body>
