@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMI BrewPi Control</title>
+  <style>
+    /* Estilos básicos para el lienzo SCADA */
+    body { margin: 0; font-family: Arial, sans-serif; }
+    #canvas { width: 100vw; height: 100vh; background: #1e1e1e; }
+  </style>
+</head>
+<body>
+  <!-- Canvas principal donde se dibujará la planta -->
+  <canvas id="canvas"></canvas>
+
+  <script>
+    // Script mínimo para inicializar el canvas
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      draw();
+    }
+
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      // Limpiamos y dibujamos un placeholder
+      ctx.fillStyle = '#1e1e1e';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fff';
+      ctx.font = '24px sans-serif';
+      ctx.fillText('BrewPi Control HMI – Placeholder', 50, 50);
+    }
+
+    resize();
+  </script>
+</body>
+</html>

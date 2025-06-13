@@ -1,0 +1,71 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./backend
+    container_name: brewpi_backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    networks:
+      - brewpi_net
+    depends_on:
+      - database
+      - mqtt
+
+  frontend:
+    build: ./frontend
+    container_name: brewpi_frontend
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - brewpi_net
+    depends_on:
+      - backend
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: brewpi_mqtt
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/config:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    networks:
+      - brewpi_net
+
+  database:
+    image: postgres:15
+    container_name: brewpi_db
+    restart: always
+    environment:
+      POSTGRES_DB: brewpi
+      POSTGRES_USER: brewadmin
+      POSTGRES_PASSWORD: brewpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - brewpi_net
+
+  simulador:
+    build: ./simulador
+    container_name: brewpi_simulador
+    restart: always
+    networks:
+      - brewpi_net
+    depends_on:
+      - backend
+      - mqtt
+
+networks:
+  brewpi_net:
+    driver: bridge

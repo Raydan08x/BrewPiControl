@@ -1,0 +1,2 @@
+asyncio-mqtt==0.16.2
+python-dotenv==1.0.1

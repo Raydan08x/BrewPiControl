@@ -1,0 +1,10 @@
+# Archivos y carpetas a ignorar por Git
+__pycache__/
+*.pyc
+.env
+*.env
+# Volúmenes y datos de Docker
+backend/.env
+mqtt/data/
+mqtt/log/
+database/data/
