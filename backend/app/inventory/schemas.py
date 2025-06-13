@@ -19,7 +19,7 @@ CATEGORY_OPTIONS = [
 
 class ItemBase(BaseModel):
     name: str = Field(..., max_length=120)
-    category: str = Field(..., regex="|".join(CATEGORY_OPTIONS))
+    category: str = Field(..., pattern="|".join(CATEGORY_OPTIONS))
     unit: str = Field(..., max_length=16)
     supplier: Optional[str] = None
     cost: Optional[Decimal] = None
