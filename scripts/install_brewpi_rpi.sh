@@ -6,12 +6,11 @@
 # Este instalador configura Docker + Docker Compose, clona (o actualiza) el
 # repositorio BrewPiControl y levanta todos los contenedores necesarios.
 # Ejecutar como usuario con privilegios sudo. Ejemplo:
-#   curl -fsSL https://raw.githubusercontent.com/tuusuario/BrewPiControl/main/scripts/install_brewpi_rpi.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/raydan08x/BrewPiControl/main/scripts/install_brewpi_rpi.sh | bash
 # -----------------------------------------------------------------------------
 
 set -euo pipefail
 
-REPO_URL="https://github.com/tuusuario/BrewPiControl.git"
 REPO_URL="https://github.com/Raydan08x/BrewPiControl.git"
 INSTALL_DIR="$HOME/BrewPiControl"
 
