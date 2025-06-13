@@ -9,7 +9,8 @@ import {
   Database,
   Home,
   Flame,
-  Beaker
+  Beaker,
+  Boxes
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -21,6 +22,7 @@ const menuItems = [
   { id: 'dashboard', name: 'Dashboard', icon: Home },
   { id: 'brewing', name: 'Tren de Cocción', icon: Flame },
   { id: 'fermentation', name: 'Fermentación', icon: Beaker },
+  { id: 'inventory', name: 'Inventario', icon: Boxes },
   { id: 'equipment', name: 'Equipos', icon: Zap },
   { id: 'sensors', name: 'Sensores', icon: Gauge },
   { id: 'processes', name: 'Procesos', icon: FlaskConical },

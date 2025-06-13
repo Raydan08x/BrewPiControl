@@ -9,6 +9,7 @@ import { Sensors } from './components/views/Sensors';
 import { BrewingTrainView } from './components/brewing/BrewingTrainView';
 import { FermentationView } from './components/fermentation/FermentationView';
 import { Processes } from './components/views/Processes';
+import { Inventory } from './components/views/Inventory';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -45,6 +46,8 @@ function App() {
         return <Sensors />;
       case 'processes':
         return <Processes />;
+      case 'inventory':
+        return <Inventory />;
       case 'devices':
         return (
           <div className="p-6">
