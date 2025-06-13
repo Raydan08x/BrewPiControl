@@ -4,12 +4,27 @@
 # Si en el futuro migramos a un framework JS (React/Vue), podremos construirlo
 # previamente y copiar la carpeta de build. Por ahora, servimos archivos estáticos.
 
+# Stage 1 – build React/Vite HMI -------------------------------------------------
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copiar los archivos de la SPA React (si existen)
+COPY ./webapp/package*.json ./
+RUN if [ -f package.json ]; then npm ci; fi
+
+COPY ./webapp .
+
+# Construir la aplicación sólo si hay package.json
+RUN if [ -f package.json ]; then npm run build; fi
+
+# Stage 2 – Nginx para servir los archivos estáticos -----------------------------
 FROM nginx:1.27-alpine
 
-# Copiamos la configuración personalizada de Nginx
+# Copiar configuración personalizada
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copiamos los archivos estáticos del HMI al directorio html de Nginx
+# Copiar build de la SPA (si existe) o la carpeta static por defecto
+COPY --from=builder /app/dist /usr/share/nginx/html
 COPY ./static /usr/share/nginx/html
 
 # Exponemos el puerto 80 (HTTP)
