@@ -18,6 +18,11 @@ async def status() -> dict[str, str]:
     -------
     dict[str, str]
         Un mensaje indicando que la API está en funcionamiento.
+
+@router.get("/status/ping", summary="Ping healthcheck", tags=["Status"])
+async def ping() -> dict:
+    return {"pong": True}
+
     """
 
     return {"status": "ok"}
