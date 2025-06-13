@@ -23,9 +23,9 @@ FROM nginx:1.27-alpine
 # Copiar configuración personalizada
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copiar build de la SPA (si existe) o la carpeta static por defecto
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copiar build de la SPA (cuando exista) y luego archivos estáticos como fallback
 COPY ./static /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Exponemos el puerto 80 (HTTP)
 EXPOSE 80
