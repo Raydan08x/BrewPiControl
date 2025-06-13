@@ -13,11 +13,12 @@ router = APIRouter()
 @router.get("/status", summary="Estado del sistema", tags=["Status"])
 async def status() -> dict[str, str]:
     """Endpoint de salud de la API.
-
     Returns
     -------
     dict[str, str]
         Un mensaje indicando que la API está en funcionamiento.
+    """
+    return {"status": "ok"}
 
 @router.get("/status/ping", summary="Ping healthcheck", tags=["Status"])
 async def ping() -> dict:
