@@ -6,8 +6,22 @@ para actualizar sus variables y publicarlas vía MQTT.
 from __future__ import annotations
 
 import time
+import os
 
-from ..utils.random_generators import random_walk, curva_logistica
+from ..utils.random_gen import gaussian_bounded, logistic_0_100
+
+# ---------------------------------------------------------------------------
+# Parámetros globales configurables vía variables de entorno (.env)
+# ---------------------------------------------------------------------------
+TEMP_MIN: float = float(os.getenv("SIM_TEMP_MIN", 18.0))
+TEMP_MAX: float = float(os.getenv("SIM_TEMP_MAX", 22.0))
+TEMP_SIGMA: float = float(os.getenv("SIM_TEMP_SIGMA", 0.3))
+
+PRESS_MIN: float = float(os.getenv("SIM_PRESS_MIN", 0.8))
+PRESS_MAX: float = float(os.getenv("SIM_PRESS_MAX", 1.2))
+PRESS_SIGMA: float = float(os.getenv("SIM_PRESS_SIGMA", 0.05))
+
+CO2_SIGMA: float = float(os.getenv("SIM_CO2_SIGMA", 1.0))
 
 
 class Fermenter:
@@ -34,15 +48,15 @@ class Fermenter:
         # Tiempo total transcurrido
         elapsed = time.time() - self._start_ts
 
-        # Temperatura se mantiene entre 18-22 °C con variaciones lentas
-        self.temperature = random_walk(self.temperature, 18.0, 22.0, paso=0.05)
+        # Temperatura con ruido gaussiano
+        self.temperature = gaussian_bounded(self.temperature, TEMP_MIN, TEMP_MAX, TEMP_SIGMA)
 
-        # Presión se mantiene entre 0.8-1.2 bar con variación suave
-        self.pressure = random_walk(self.pressure, 0.8, 1.2, paso=0.01)
+        # Presión con ruido gaussiano
+        self.pressure = gaussian_bounded(self.pressure, PRESS_MIN, PRESS_MAX, PRESS_SIGMA)
 
-        # CO₂ sigue una curva logística hasta 100 % con algo de ruido
-        base_co2 = curva_logistica(elapsed)
-        self.co2 = random_walk(base_co2, 0.0, 100.0, paso=1.0)
+        # CO₂ basada en curva logística con ruido adicional
+        base_co2 = logistic_0_100(elapsed)
+        self.co2 = gaussian_bounded(base_co2, 0.0, 100.0, CO2_SIGMA)
 
     # ------------------------------------------------------------------
     # Serialización

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Diagrama de flujo de datos BrewPi Control -->
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="140" viewBox="0 0 760 140" font-family="Segoe UI, Roboto, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151" />
+    </marker>
+    <style>
+      .box { fill:#d1d5db; stroke:#374151; stroke-width:2px; rx:6; ry:6; }
+      .title { font-weight:bold; fill:#111827; text-anchor:middle; dominant-baseline:central; }
+    </style>
+  </defs>
+
+  <!-- Nodes -->
+  <rect class="box" x="10" y="40" width="140" height="60" />
+  <text class="title" x="80" y="70">Simulator</text>
+
+  <rect class="box" x="180" y="40" width="120" height="60" />
+  <text class="title" x="240" y="70">MQTT</text>
+
+  <rect class="box" x="330" y="40" width="140" height="60" />
+  <text class="title" x="400" y="70">Backend</text>
+
+  <rect class="box" x="500" y="10" width="160" height="60" />
+  <text class="title" x="580" y="40">PostgreSQL</text>
+
+  <rect class="box" x="500" y="90" width="160" height="60" />
+  <text class="title" x="580" y="120">Frontend</text>
+
+  <!-- Arrows -->
+  <line x1="150" y1="70" x2="180" y2="70" stroke="#374151" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="300" y1="70" x2="330" y2="70" stroke="#374151" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="470" y1="40" x2="500" y2="40" stroke="#374151" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="470" y1="100" x2="500" y2="100" stroke="#374151" stroke-width="2" marker-end="url(#arrow)" />
+</svg>

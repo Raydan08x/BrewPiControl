@@ -8,9 +8,10 @@ Toda la documentación y comentarios están en español técnico.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import status
+from app.routers import routers as app_routers
 import asyncio
 from app.services.mqtt import mqtt_manager
+from app.services.fermentation_service import fermentation_service
 
 # Creamos la instancia principal de FastAPI
 app = FastAPI(
@@ -28,14 +29,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Incluimos los routers de la aplicación
-app.include_router(status.router, prefix="/api")
+# Incluimos todos los routers declarados
+for rtr in app_routers:
+    app.include_router(rtr, prefix="/api")
 
 
 @app.on_event("startup")
 async def startup_event() -> None:
     """Arranca la tarea de escucha MQTT en segundo plano."""
     asyncio.create_task(mqtt_manager.run_forever())
+    fermentation_service.setup()
 
 
 @app.on_event("shutdown")

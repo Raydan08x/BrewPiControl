@@ -13,7 +13,9 @@ from typing import List
 from models.fermenter import Fermenter
 from services.mqtt_client import MQTTClient
 
-PUBLISH_INTERVAL = 3.0  # segundos
+import os
+
+PUBLISH_INTERVAL = float(os.getenv("SIM_PUBLISH_INTERVAL", 3.0))
 FERMENTERS: List[Fermenter] = [
     Fermenter(f"FERMENTER_{i}") for i in range(1, 5)
 ]

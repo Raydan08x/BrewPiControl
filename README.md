@@ -17,6 +17,15 @@ Sistema SCADA industrial modular y distribuido para control integral de plantas 
 - Operación en LAN local aislada (sin internet)
 - Portabilidad PC local ↔ Raspberry Pi 5
 
+## Diagramas
+
+Los siguientes diagramas SVG ilustran la arquitectura y el flujo de datos del sistema:
+
+| Descripción | Diagrama |
+|-------------|----------|
+| Topología de contenedores Docker | ![Docker Topology](docs/diagrams/docker_topology.svg) |
+| Flujo de datos de proceso | ![Data Flow](docs/diagrams/data_flow.svg) |
+
 ## Instalación Rápida
 ```bash
 # Requisitos: Docker y Docker Compose instalados
