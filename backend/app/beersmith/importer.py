@@ -1,5 +1,5 @@
 import os
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from typing import Dict, Any
 
 BEERSMITH_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../docs/DB_Beersmith3'))
@@ -29,22 +29,26 @@ class BeerSmithImportSummary:
 
 def parse_bsmx_file(filepath: str) -> Dict[str, Any]:
     summary = BeerSmithImportSummary()
-    tree = ET.parse(filepath)
-    root = tree.getroot()
-    tag_map = {
-        'Grain': 'grains',
-        'Hop': 'hops',
-        'Yeast': 'yeasts',
-        'Misc': 'miscs',
-        'Recipe': 'recipes',
-        'Style': 'styles',
-        'Water': 'water_profiles',
-        'Equipment': 'equipment',
-    }
-    for tag, attr in tag_map.items():
-        elems = root.findall(f'.//{tag}')
-        setattr(summary, attr, len(elems))
-    return summary.as_dict()
+    try:
+        parser = ET.XMLParser(recover=True, resolve_entities=True)
+        tree = ET.parse(filepath, parser)
+        root = tree.getroot()
+        tag_map = {
+            'Grain': 'grains',
+            'Hop': 'hops',
+            'Yeast': 'yeasts',
+            'Misc': 'miscs',
+            'Recipe': 'recipes',
+            'Style': 'styles',
+            'Water': 'water_profiles',
+            'Equipment': 'equipment',
+        }
+        for tag, attr in tag_map.items():
+            elems = root.findall(f'.//{tag}')
+            setattr(summary, attr, len(elems))
+        return summary.as_dict()
+    except Exception as e:
+        return {"error": f"Parse error: {str(e)}"}
 
 def scan_beersmith_db() -> Dict[str, Any]:
     """Scan all BeerSmith .bsmx files and return a summary."""
