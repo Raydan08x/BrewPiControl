@@ -1,0 +1,11 @@
+lot_number,name,category,quantity_available,unit,supplier,cost,expiry_date,location
+MALT-2025-001,Pale Ale Malt,malt,1000,kg,Malteurop,1.20,2026-05-01,Silo A
+MALT-2025-002,Crystal 60L,malt,250,kg,Weyermann,1.45,2026-05-01,Silo B
+HOP-2025-001,Cascade 2024,hop,15,kg,Hopsteiner,22.00,2026-09-30,Cold Room
+HOP-2025-002,Citra 2024,hop,10,kg,YakimaChief,25.00,2026-09-30,Cold Room
+YEAST-2025-001,SafAle US-05,yeast,50,L,Fermentis,85.00,2025-12-31,Yeast Lab
+ADD-2025-001,Irish Moss,additive,5,kg,BrewSupply,12.00,2027-01-15,Additives Shelf
+PACK-2025-001,Bottle 330ml,package,10000,u,OwensIllinois,0.08,,Warehouse
+PACK-2025-002,Cap 26mm,caps,package,10000,u,CapsCo,0.02,,Warehouse
+CONS-2025-001,Caustic Soda,consumable,200,kg,ChemCorp,0.95,2028-03-10,Chemical Room
+CONS-2025-002,Peracetic Acid,consumable,150,L,ChemCorp,3.50,2026-11-05,Chemical Room

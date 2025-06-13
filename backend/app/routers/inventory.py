@@ -50,12 +50,36 @@ async def item_transactions(lot_number: str, db: AsyncSession = Depends(get_db))
     return txs
 
 
-@router.post("/import", status_code=202)
-async def import_bulk(file: UploadFile = File(...)) -> dict[str, str]:  # noqa: D401
-    # Placeholder: procesamiento se implementará en sprint 2.
+@router.post("/import", status_code=201)
+async def import_bulk(
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+) -> dict[str, str]:  # noqa: D401
+    """Importación masiva de inventario.
+
+    El archivo debe contener columnas mínimas definidas en importer.REQUIRED_COLUMNS.
+    Devuelve resumen de filas insertadas y errores ignorados.
+    """
+
     contents = await file.read()
-    size_kb = len(contents) / 1024
-    return {"msg": f"Archivo {file.filename} ({size_kb:.1f} KB) recibido. Procesamiento pendiente."}
+    from app.inventory.importer import ImportErrorReport, parse_upload  # local para evitar ciclo
+
+    try:
+        rows = await parse_upload(file.filename, contents)
+    except ImportErrorReport as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    inserted = 0
+    skipped: list[str] = []
+    for row in rows:
+        try:
+            await inventory_service.create_item(db, ItemCreate(**row))
+            inserted += 1
+        except Exception as err:  # pylint: disable=broad-except
+            skipped.append(f"{row.get('lot_number')}: {err}")
+    return {"inserted": inserted, "skipped": skipped}
 
 
 # ---------------------- WebSocket ----------------------
