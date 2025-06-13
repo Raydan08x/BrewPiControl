@@ -2,7 +2,7 @@ import os
 import xml.etree.ElementTree as ET
 from typing import Dict, Any
 
-BEERSMITH_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../docs/DB_Beersmith3'))
+BEERSMITH_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../docs/DB_Beersmith3'))
 
 class BeerSmithImportSummary:
     def __init__(self):
