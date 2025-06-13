@@ -17,6 +17,30 @@ Sistema SCADA industrial modular y distribuido para control integral de plantas 
 - Operación en LAN local aislada (sin internet)
 - Portabilidad PC local ↔ Raspberry Pi 5
 
+## Puesta en marcha rápida en Raspberry Pi 5
+
+```bash
+# Clonar repositorio
+git clone https://github.com/tuusuario/BrewPiControl.git
+cd BrewPiControl
+
+# Ejecutar instalador
+chmod +x scripts/setup_pi.sh
+./scripts/setup_pi.sh
+```
+
+El script hará:
+1. Copiar `backend/.env.example` → `backend/.env` si no existe.
+2. Construir y levantar los contenedores con Docker Compose.
+3. Crear automáticamente las tablas (`app.db.create_tables`).
+4. Importar `docs/samples/inventory_sample.csv` si la tabla está vacía.
+
+Luego accede a:
+* Backend Swagger: `http://<IP-Pi>:8000/docs`
+* Frontend SPA: `http://<IP-Pi>:8080`
+
+---
+
 ## Diagramas
 
 Los siguientes diagramas SVG ilustran la arquitectura y el flujo de datos del sistema:
