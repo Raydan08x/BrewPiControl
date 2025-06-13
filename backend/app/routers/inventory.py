@@ -37,9 +37,10 @@ async def update_item(
     return await inventory_service.update_item(db, lot_number, data)
 
 
-@router.delete("/items/{lot_number}", status_code=204)
-async def delete_item(lot_number: str, db: AsyncSession = Depends(get_db)) -> None:  # noqa: D401
+@router.delete("/items/{lot_number}", status_code=200)
+async def delete_item(lot_number: str, db: AsyncSession = Depends(get_db)) -> dict:
     await inventory_service.delete_item(db, lot_number)
+    return {"detail": "Item deleted"}
 
 
 @router.get("/items/{lot_number}/transactions", response_model=List[TransactionDTO])
