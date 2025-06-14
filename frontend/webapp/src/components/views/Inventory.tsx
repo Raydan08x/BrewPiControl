@@ -20,6 +20,7 @@ export function Inventory() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<string>('all');
   const [loading, setLoading] = useState(false);
+  const [lowStock, setLowStock] = useState<number>(10);
 
   const load = async () => {
     try {
@@ -105,7 +106,31 @@ export function Inventory() {
       {loading ? (
         <div className="mt-8 text-gray-500 dark:text-gray-400">Cargando…</div>
       ) : (
-        <InventoryTable items={filtered} />
+        <InventoryTable items={filtered} lowStock={lowStock} />
+      )}
+      <div className="mt-4 flex items-center gap-2">
+        <label className="text-sm text-gray-600 dark:text-gray-300">Umbral stock bajo:</label>
+        <input
+          type="number"
+          min={0}
+          value={lowStock}
+          onChange={(e) => setLowStock(Number(e.target.value))}
+          className="input w-20"
+        />
+      </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <InventoryForm
+              onCreated={() => {
+                setShowModal(false);
+                load();
+              }}
+              onCancel={() => setShowModal(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
