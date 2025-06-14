@@ -181,35 +181,7 @@ export function Inventory() {
             />
           </label>
 
-          {/* Columnas */}
-          <button className="btn btn-ghost" onClick={() => setShowColMenu((v: boolean) => !v)} title="Mostrar/ocultar columnas">
-        Columnas ▾
-      </button>
-      {showColMenu && (
-        <div className="absolute right-0 top-full bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg z-10 border border-gray-300 dark:border-gray-600 text-sm mt-1">
-          {allColumns.map((c: InventoryColumnKey) => (
-            <label className="block mb-1" key={c}>
-              <input
-                type="checkbox"
-                className="mr-1"
-                checked={visibleCols.includes(c)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const updated = [...visibleCols, c];
-                    setVisibleCols(updated);
-                    localStorage.setItem('inventory_visible_cols', JSON.stringify(updated));
-                  } else {
-                    const updated = visibleCols.filter((col: InventoryColumnKey) => col !== c);
-                    setVisibleCols(updated);
-                    localStorage.setItem('inventory_visible_cols', JSON.stringify(updated));
-                  }
-                }}
-              />
-              {c}
-            </label>
-          ))}
-        </div>
-      )}
+          
 
           {/* Exportar */}
           <button className="btn-secondary" onClick={handleExport}>
