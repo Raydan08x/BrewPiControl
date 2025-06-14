@@ -247,57 +247,33 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-800">
-          {paginationMode === 'pagination' ? paginatedItems.map(it => {
-            const low = it.quantity_available < lowStock;
-            const provider = providers.find(p => p.id === it.provider_id);
-            const itemWithProvider = {
-              ...it,
-              supplier: provider?.name || it.supplier || '-',
-              provider_country: provider && provider.is_national === false ? provider.country : '-',
-              lead_time_days: it.lead_time_days ?? '-',
-            };
-            
-            return (
-              <tr
-                key={it.lot_number}
-                className={`hover:bg-gray-700 ${low ? 'bg-red-900/20' : ''}`}
-              >
-                {usedCols.map(col => (
-                  <td
-                    key={col.key}
-                    className="px-4 py-2 whitespace-nowrap text-sm text-gray-200 capitalize"
-                  >
-                    {col.cell(itemWithProvider)}
-                  </td>
-                ))}
-              </tr>
-            );
-          }) : items.map(it => {
-            const low = it.quantity_available < lowStock;
-            const provider = providers.find(p => p.id === it.provider_id);
-            const itemWithProvider = {
-              ...it,
-              supplier: provider?.name || it.supplier || '-',
-              provider_country: provider && provider.is_national === false ? provider.country : '-',
-              lead_time_days: it.lead_time_days ?? '-',
-            };
-            
-            return (
-              <tr
-                key={it.lot_number}
-                className={`hover:bg-gray-700 ${low ? 'bg-red-900/20' : ''}`}
-              >
-                {usedCols.map(col => (
-                  <td
-                    key={col.key}
-                    className="px-4 py-2 whitespace-nowrap text-sm text-gray-200 capitalize"
-                  >
-                    {col.cell(itemWithProvider)}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
+          {(paginationMode === 'pagination' ? paginatedItems : items).map(it => {
+              const provider = providers.find(p => String(p.id) === String(it.provider_id));
+              const itemWithProvider = {
+                ...it,
+                supplier: provider?.name || it.supplier || '-',
+                provider_country: provider && provider.is_national === false ? provider.country : '-',
+                lead_time_days: it.lead_time_days ?? '-',
+              };
+              return (
+                <tr
+                  key={it.lot_number}
+                  className={
+                    'hover:bg-gray-700 ' +
+                    (it.quantity_available < lowStock ? 'bg-red-900/20' : '')
+                  }
+                >
+                  {usedCols.map(col => (
+                    <td
+                      key={col.key}
+                      className="px-4 py-2 whitespace-nowrap text-sm text-gray-200 capitalize"
+                    >
+                      {col.cell(itemWithProvider)}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       {/* Controles de paginación */}
