@@ -22,7 +22,7 @@ class InventoryService:  # pylint: disable=too-few-public-methods
         return res.scalars().all()
 
     async def create_item(self, db: AsyncSession, data: ItemCreate) -> InventoryItem:
-        item = InventoryItem(**data.dict())
+        item = InventoryItem(**data.dict(exclude_none=True))
         db.add(item)
         db.add(
             InventoryTransaction(
