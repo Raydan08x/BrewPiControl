@@ -35,7 +35,11 @@ interface Props {
   visibleCols?: InventoryColumnKey[];
 }
 
-export function InventoryTable({ items, lowStock = 10, visibleCols }: Props) {
+interface InventoryTableProps extends Props {
+  onDelete?: (item: InventoryItem) => void;
+}
+
+export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete }: InventoryTableProps) {
   const cols: Array<{
     key: InventoryColumnKey;
     header: string;
@@ -76,12 +80,20 @@ export function InventoryTable({ items, lowStock = 10, visibleCols }: Props) {
     {
       key: 'actions',
       header: 'Acciones',
-      cell: () => (
+      cell: (it: InventoryItem) => (
         <div className="flex gap-2">
-          <button className="text-brewery-600 hover:text-brewery-700" title="Editar">
+          <button
+            className="p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/20 text-amber-700 dark:text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            title="Editar"
+            onClick={() => alert('Editar (no implementado)')}
+          >
             <Edit3 size={16} />
           </button>
-          <button className="text-red-600 hover:text-red-700" title="Eliminar">
+          <button
+            className="p-1 rounded hover:bg-red-100 dark:hover:bg-red-900/20 text-red-700 dark:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-400"
+            title="Eliminar"
+            onClick={() => onDelete?.(it)}
+          >
             <Trash2 size={16} />
           </button>
         </div>
