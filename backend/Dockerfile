@@ -15,6 +15,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiamos el código fuente de la aplicación
 COPY ./app ./app
 
+# Copiamos el directorio de Alembic y el archivo de configuración
+COPY alembic.ini ./
+COPY ./alembic ./alembic
+
 # Copiamos el archivo de variables de entorno de ejemplo
 COPY .env.example .env
 
