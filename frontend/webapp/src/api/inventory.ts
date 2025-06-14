@@ -51,3 +51,20 @@ export async function exportInventory(): Promise<Blob> {
   if (!res.ok) throw new Error('Error al exportar CSV');
   return res.blob();
 }
+
+export async function updateItem(id: string | number, data: Partial<InventoryItem>): Promise<InventoryItem> {
+  const res = await fetch(`${base}/items/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Error al actualizar item');
+  return res.json();
+}
+
+export async function deleteItem(id: string | number): Promise<void> {
+  const res = await fetch(`${base}/items/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Error al eliminar item');
+}
