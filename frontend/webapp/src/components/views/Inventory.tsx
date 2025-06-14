@@ -16,16 +16,6 @@ import { InventoryEditModal } from '../inventory/InventoryEditModal';
 import { exportInventory, uploadFile, type InventoryItem } from '../../api/inventory';
 import { useInventory } from '../../hooks/useInventory';
 
-// Add JSX intrinsic elements declaration
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-      button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-    }
-  }
-}
-
 // Catálogo fijo de categorías empleadas por el backend
 const categories: Array<InventoryItem['category']> = [
   'malt',
