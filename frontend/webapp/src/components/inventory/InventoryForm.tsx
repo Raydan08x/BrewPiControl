@@ -163,27 +163,21 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-100">Proveedor</label>
+          <label className="block text-sm font-medium mb-1 text-gray-100">Proveedor *</label>
           <select
             name="provider_id"
             value={form.provider_id}
             onChange={handleChange}
+            required
             className="bg-gray-800 text-gray-100 border border-gray-700 rounded px-3 py-2 w-full"
           >
-            <option value="" className="bg-gray-800 text-gray-100">Seleccionar proveedor</option>
-            {providers.map((provider) => (
-              <option key={provider.id} value={provider.id.toString()} className="bg-gray-800 text-gray-100">
-                {provider.name}
+            <option value="" className="bg-gray-800 text-gray-100">Seleccione proveedor</option>
+            {providers.map(p => (
+              <option key={p.id} value={p.id} className="bg-gray-800 text-gray-100">
+                {p.name}
               </option>
             ))}
           </select>
-          {/* Si el proveedor es internacional, mostrar país */}
-          {selectedProvider && selectedProvider.is_national === false && (
-            <div className="mt-2">
-              <label className="block text-xs text-gray-400">País de origen</label>
-              <input
-                value={selectedProvider.country || ''}
-                readOnly
                 className="bg-gray-700 text-gray-200 border border-gray-600 rounded px-3 py-1 w-full cursor-not-allowed"
               />
             </div>
