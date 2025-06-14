@@ -23,6 +23,7 @@ const menuItems = [
   { id: 'brewing', name: 'Tren de Cocción', icon: Flame },
   { id: 'fermentation', name: 'Fermentación', icon: Beaker },
   { id: 'inventory', name: 'Inventario', icon: Boxes },
+  { id: 'providers', name: 'Proveedores', icon: Boxes },
   { id: 'equipment', name: 'Equipos', icon: Zap },
   { id: 'sensors', name: 'Sensores', icon: Gauge },
   { id: 'processes', name: 'Procesos', icon: FlaskConical },
