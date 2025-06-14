@@ -12,4 +12,4 @@ paho-mqtt==1.6.1 # fijado para compatibilidad con asyncio-mqtt <0.15
 aiofiles==23.2.1
 python-multipart==0.0.9
 lxml
-alembic
+alembic==1.13.0
