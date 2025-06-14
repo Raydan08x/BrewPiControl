@@ -45,3 +45,9 @@ export async function uploadFile(file: File): Promise<void> {
     throw new Error(data.detail ?? 'Error al importar');
   }
 }
+
+export async function exportInventory(): Promise<Blob> {
+  const res = await fetch(`${base}/export`);
+  if (!res.ok) throw new Error('Error al exportar CSV');
+  return res.blob();
+}
