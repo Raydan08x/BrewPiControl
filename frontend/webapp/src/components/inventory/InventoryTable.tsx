@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Edit3, Trash2 } from 'lucide-react';
 import type { InventoryItem } from '../../api/inventory';
 
@@ -81,7 +81,7 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
     {
       key: 'actions',
       header: 'Acciones',
-      cell: (it: InventoryItem) => (
+      cell: (it: InventoryItem): ReactNode => (
         <div className="flex gap-2">
           <button
             className="p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/20 text-amber-700 dark:text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
