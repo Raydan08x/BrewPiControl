@@ -20,6 +20,11 @@ REQUIRED_COLUMNS = {
 
 OPTIONAL_COLUMNS = {
     "supplier",
+    "manufacturer",
+    "origin",
+    "safety_stock",
+    "min_order_qty",
+    "package_size",
     "cost",
     "expiry_date",
     "location",
