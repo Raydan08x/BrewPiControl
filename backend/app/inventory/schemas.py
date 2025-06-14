@@ -25,6 +25,11 @@ class ItemBase(BaseModel):
     cost: Optional[Decimal] = None
     expiry_date: Optional[dt.date] = None
     location: Optional[str] = None
+    manufacturer: Optional[str] = None
+    origin: Optional[str] = Field(None, pattern="nacional|importada")
+    safety_stock: Optional[Decimal] = Field(None, ge=0)
+    min_order_qty: Optional[Decimal] = Field(None, ge=0)
+    package_size: Optional[str] = None
 
 
 class ItemCreate(ItemBase):
@@ -41,6 +46,11 @@ class ItemUpdate(BaseModel):
     cost: Optional[Decimal] = None
     expiry_date: Optional[dt.date] = None
     location: Optional[str] = None
+    manufacturer: Optional[str] = None
+    origin: Optional[str] = Field(None, pattern="nacional|importada")
+    safety_stock: Optional[Decimal] = Field(None, ge=0)
+    min_order_qty: Optional[Decimal] = Field(None, ge=0)
+    package_size: Optional[str] = None
 
 
 class ItemDTO(ItemBase):
