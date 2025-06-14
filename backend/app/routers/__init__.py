@@ -11,3 +11,6 @@ app_routers = [
     beersmith_router,
     providers_router,
 ]
+
+# Alias for backward compatibility
+routers = app_routers
