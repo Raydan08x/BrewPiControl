@@ -4,13 +4,13 @@ import type { InventoryItem } from '../../api/inventory';
 
 // Colores por categoría
 const categoryColors: Record<string, string> = {
-  malt: 'bg-amber-600/20 text-amber-300',
-  hop: 'bg-emerald-600/20 text-emerald-300',
-  yeast: 'bg-violet-600/20 text-violet-300',
-  additive: 'bg-sky-600/20 text-sky-300',
-  package: 'bg-orange-600/20 text-orange-300',
-  consumable: 'bg-rose-600/20 text-rose-300',
-  maintenance: 'bg-gray-600/20 text-gray-300',
+  malt: 'bg-amber-600/20 text-amber-900 dark:text-amber-200',
+  hop: 'bg-emerald-600/20 text-emerald-900 dark:text-emerald-200',
+  yeast: 'bg-violet-600/20 text-violet-900 dark:text-violet-200',
+  additive: 'bg-sky-600/20 text-sky-900 dark:text-sky-200',
+  package: 'bg-orange-600/20 text-orange-900 dark:text-orange-200',
+  consumable: 'bg-rose-600/20 text-rose-900 dark:text-rose-200',
+  maintenance: 'bg-gray-600/20 text-gray-900 dark:text-gray-200',
 };
 
 export type InventoryColumnKey =
