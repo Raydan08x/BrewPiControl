@@ -69,6 +69,22 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
   ]);
   const [providers, setProviders] = useState<Provider[]>([]);
   const columnMenuRef = useRef<HTMLDivElement>(null);
+
+  // Estados para paginación y scroll infinito
+  const [paginationMode, setPaginationMode] = useState<'pagination' | 'infinite'>('pagination');
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calcular items paginados
+  const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+  const paginatedItems = paginationMode === 'pagination'
+    ? items.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    : items;
+
+  // Resetear página si cambia el modo o la cantidad de items por página
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [paginationMode, itemsPerPage, items.length]);
   
   // Cargar proveedores
   useEffect(() => {
