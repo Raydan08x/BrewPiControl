@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import type { Provider } from './ProviderTable';
 
 interface Props {
@@ -23,8 +24,19 @@ export function ProviderForm({ provider, onSave, onCancel }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim()) return;
-    onSave(form);
+
+    // Validaciones simples
+    if (!form.name.trim()) {
+      toast.error('El nombre es obligatorio');
+      return;
+    }
+    if (form.email && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
+      toast.error('Email no válido');
+      return;
+    }
+
+        onSave(form);
+    toast.success('Proveedor guardado correctamente');
   };
 
   return (
