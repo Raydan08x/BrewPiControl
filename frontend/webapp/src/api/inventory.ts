@@ -8,6 +8,11 @@ export interface InventoryItem {
   expiry_date?: string | null;
   supplier?: string | null;
   cost?: number | null;
+  manufacturer?: string | null;
+  origin?: 'nacional' | 'importada' | null;
+  safety_stock?: number | null;
+  min_order_qty?: number | null;
+  package_size?: string | null;
 }
 
 const base = '/api/inventory';
