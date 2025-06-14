@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { CATEGORIES } from '../../constants';
+import { fetchProviders, type Provider } from '../../api/providers';
 import type { InventoryItem } from '../../api/inventory';
 
 interface Props {
@@ -11,14 +12,15 @@ interface Props {
 }
 
 export function InventoryEditModal({ item, isOpen, onClose, onSave }: Props) {
-  const [form, setForm] = useState<Partial<InventoryItem>>({});
+  const [form, setForm] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [providers, setProviders] = useState<Provider[]>([]);
 
   // Reset form when item changes
   useEffect(() => {
     if (item) {
-      setForm({ ...item });
+      setForm({ ...item, provider_id: item.provider_id ? String(item.provider_id) : '' });
       // Show advanced if any advanced field is filled
       const hasAdvancedData = !!(
         item.manufacturer || 
@@ -31,24 +33,32 @@ export function InventoryEditModal({ item, isOpen, onClose, onSave }: Props) {
     }
   }, [item]);
 
+  useEffect(() => {
+    fetchProviders().then(setProviders).catch(() => setProviders([]));
+  }, []);
+
   if (!isOpen) return null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    
+    if (name === 'provider_id') {
+      setForm((prev: any) => ({ ...prev, provider_id: value }));
+      return;
+    }
     // Convert number fields to numbers
     if (type === 'number') {
-      setForm(prev => ({
+      setForm((prev: any) => ({
         ...prev,
         [name]: value === '' ? null : Number(value),
       }));
     } else {
-      setForm(prev => ({
+      setForm((prev: any) => ({
         ...prev,
         [name]: value,
       }));
     }
   };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
