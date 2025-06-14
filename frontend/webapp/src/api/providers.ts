@@ -13,10 +13,18 @@ export interface Provider {
 const base = '/api/providers';
 
 export async function fetchProviders(search?: string): Promise<Provider[]> {
-  const url = search ? `${base}/?search=${encodeURIComponent(search)}` : `${base}/`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Error al obtener proveedores');
-  return res.json();
+  if (search === undefined) {
+    // Mock de proveedores por defecto
+    return [
+      { id: 1, name: 'TDCL (the drink craft labs)', is_national: false, country: 'USA' },
+      { id: 2, name: 'Distriness', is_national: true, country: 'Colombia' },
+    ];
+  } else {
+    const url = search ? `${base}/?search=${encodeURIComponent(search)}` : `${base}/`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Error al obtener proveedores');
+    return res.json();
+  }
 }
 
 export async function addProvider(data: Omit<Provider, 'id'>): Promise<Provider> {
