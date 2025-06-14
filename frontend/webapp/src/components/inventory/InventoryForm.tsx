@@ -14,6 +14,11 @@ interface FormState {
   category: string;
   quantity_available: string; // texto para fácil validación
   unit: string;
+  manufacturer: string;
+  origin: 'nacional' | 'importada';
+  safety_stock: string;
+  min_order_qty: string;
+  package_size: string;
 }
 
 const CATEGORIES = ['malt', 'hop', 'yeast', 'additive', 'package', 'consumable'];
@@ -25,8 +30,14 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
     category: 'malt',
     quantity_available: '',
     unit: 'kg',
+    manufacturer: '',
+    origin: 'nacional',
+    safety_stock: '',
+    min_order_qty: '',
+    package_size: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -47,6 +58,11 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
       const payload = {
         ...form,
         quantity_available: qty,
+        manufacturer: form.manufacturer || null,
+        origin: form.origin || null,
+        safety_stock: form.safety_stock ? parseFloat(form.safety_stock) : null,
+        min_order_qty: form.min_order_qty ? parseFloat(form.min_order_qty) : null,
+        package_size: form.package_size || null,
       } as unknown as InventoryItem; // createItem cast internally
       await createItem(payload);
       toast.success('Item creado');
@@ -114,6 +130,36 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
           />
         </div>
       </div>
+      {showAdvanced && (
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Empresa (Fabricante)</label>
+            <input name="manufacturer" value={form.manufacturer} onChange={handleChange} className="input w-full" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Origen</label>
+            <select name="origin" value={form.origin} onChange={handleChange} className="input w-full">
+              <option value="nacional" className="capitalize">Nacional</option>
+              <option value="importada" className="capitalize">Importada</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Stock de Seguridad</label>
+            <input name="safety_stock" value={form.safety_stock} onChange={handleChange} className="input w-full" type="number" min="0" step="any" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Orden Mínima</label>
+            <input name="min_order_qty" value={form.min_order_qty} onChange={handleChange} className="input w-full" type="number" min="0" step="any" />
+          </div>
+          <div className="col-span-2">
+            <label className="block text-sm font-medium mb-1">Embalaje</label>
+            <input name="package_size" value={form.package_size} onChange={handleChange} className="input w-full" />
+          </div>
+        </div>
+      )}
+      <button type="button" className="text-xs underline" onClick={() => setShowAdvanced(!showAdvanced)}>
+        {showAdvanced ? 'Ocultar datos avanzados' : 'Mostrar datos avanzados'}
+      </button>
       <div className="flex gap-2 justify-end">
         <button type="button" className="btn-secondary" onClick={onCancel} disabled={loading}>
           Cancelar
