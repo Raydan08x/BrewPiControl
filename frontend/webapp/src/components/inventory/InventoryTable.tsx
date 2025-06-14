@@ -2,6 +2,17 @@ import React from 'react';
 import { InventoryItem } from '../../api/inventory';
 import { Edit3, Trash2 } from 'lucide-react';
 
+// Colores por categoría para badge
+const categoryColors: Record<string, string> = {
+  malt: 'bg-amber-600/20 text-amber-300',
+  hop: 'bg-emerald-600/20 text-emerald-300',
+  yeast: 'bg-violet-600/20 text-violet-300',
+  additive: 'bg-sky-600/20 text-sky-300',
+  package: 'bg-orange-600/20 text-orange-300',
+  consumable: 'bg-rose-600/20 text-rose-300',
+  maintenance: 'bg-gray-600/20 text-gray-300',
+};
+
 interface Props {
   items: InventoryItem[];
   lowStock?: number;
@@ -20,9 +31,11 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
           <tr>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lote</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ubicación</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caducidad</th>
+            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedor</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
           </tr>
         </thead>
@@ -40,6 +53,11 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                   {it.name}
                 </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm">
+                  <span className={`badge ${categoryColors[it.category] ?? 'bg-gray-600/20 text-gray-300'} capitalize`}>
+                    {it.category}
+                  </span>
+                </td>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                   {it.quantity_available} {it.unit}
                 </td>
@@ -48,6 +66,9 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                   {it.expiry_date ? new Date(it.expiry_date).toLocaleDateString() : '-'}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
+                  {it.supplier ?? '-'}
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 flex gap-2">
                   <button className="text-brewery-600 hover:text-brewery-700" title="Editar">
