@@ -3,9 +3,10 @@ import type { InventoryItem } from '../../api/inventory';
 
 interface Props {
   items: InventoryItem[];
+  lowStock?: number;
 }
 
-export function InventoryTable({ items }: Props) {
+export function InventoryTable({ items, lowStock = 10 }: Props) {
   if (!items.length) {
     return (
       <div className="text-gray-500 dark:text-gray-400 mt-4">No hay registros.</div>
@@ -28,8 +29,13 @@ export function InventoryTable({ items }: Props) {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-800">
-          {items.map((it) => (
-            <tr key={it.lot_number} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+          {items.map((it) => {
+            const low = it.quantity_available < lowStock;
+            return (
+            <tr
+                key={it.lot_number}
+                className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${low ? 'bg-red-50 dark:bg-red-950' : ''}`}
+              >
               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                 {it.lot_number}
               </td>
