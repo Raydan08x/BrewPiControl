@@ -164,17 +164,6 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
             title="Eliminar"
             onClick={() => onDelete?.(it)}
           >
-            className="p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/20 text-amber-700 dark:text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            title="Editar"
-            onClick={() => onEdit?.(it)}
-          >
-            <Edit3 size={16} />
-          </button>
-          <button
-            className="p-1 rounded hover:bg-red-100 dark:hover:bg-red-900/20 text-red-700 dark:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-            title="Eliminar"
-            onClick={() => onDelete?.(it)}
-          >
             <Trash2 size={16} />
           </button>
         </div>
@@ -241,7 +230,32 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-800">
-          {items.map(it => {
+          {paginationMode === 'pagination' ? paginatedItems.map(it => {
+            const low = it.quantity_available < lowStock;
+            const provider = providers.find(p => p.id === it.provider_id);
+            const itemWithProvider = {
+              ...it,
+              supplier: provider?.name || it.supplier || '-',
+              provider_country: provider && provider.is_national === false ? provider.country : '-',
+              lead_time_days: it.lead_time_days ?? '-',
+            };
+            
+            return (
+              <tr
+                key={it.lot_number}
+                className={`hover:bg-gray-700 ${low ? 'bg-red-900/20' : ''}`}
+              >
+                {usedCols.map(col => (
+                  <td
+                    key={col.key}
+                    className="px-4 py-2 whitespace-nowrap text-sm text-gray-200 capitalize"
+                  >
+                    {col.cell(itemWithProvider)}
+                  </td>
+                ))}
+              </tr>
+            );
+          }) : items.map(it => {
             const low = it.quantity_available < lowStock;
             const provider = providers.find(p => p.id === it.provider_id);
             const itemWithProvider = {
@@ -269,6 +283,42 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
           })}
         </tbody>
       </table>
+      {/* Controles de paginación */}
+      {paginationMode === 'pagination' && totalPages > 1 && (
+        <div className="flex justify-center items-center gap-2 mt-2">
+          <button
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-400 dark:border-gray-600 shadow-sm hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50"
+          >
+            &lt;
+          </button>
+          <span className="text-sm text-gray-800 dark:text-gray-200">
+            Página {currentPage} de {totalPages}
+          </span>
+          <button
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-400 dark:border-gray-600 shadow-sm hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50"
+          >
+            &gt;
+          </button>
+        </div>
+      )}
+      <div className="flex justify-center items-center gap-2 mt-2">
+        <button
+          onClick={() => setPaginationMode('pagination')}
+          className={`px-2 py-1 rounded ${paginationMode === 'pagination' ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-700'} text-gray-900 dark:text-gray-100 border border-gray-400 dark:border-gray-600 shadow-sm`}
+        >
+          Paginación
+        </button>
+        <button
+          onClick={() => setPaginationMode('infinite')}
+          className={`px-2 py-1 rounded ${paginationMode === 'infinite' ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-700'} text-gray-900 dark:text-gray-100 border border-gray-400 dark:border-gray-600 shadow-sm`}
+        >
+          Scroll infinito
+        </button>
+      </div>
     </div>
   );
 }
