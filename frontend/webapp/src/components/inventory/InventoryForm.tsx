@@ -178,10 +178,6 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
               </option>
             ))}
           </select>
-                className="bg-gray-700 text-gray-200 border border-gray-600 rounded px-3 py-1 w-full cursor-not-allowed"
-              />
-            </div>
-          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1 text-gray-100">Lead time (días)</label>
