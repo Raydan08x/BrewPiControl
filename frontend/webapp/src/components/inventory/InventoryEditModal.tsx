@@ -100,6 +100,23 @@ export function InventoryEditModal({ item, isOpen, onClose, onSave }: Props) {
               />
             </div>
             <div>
+              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Proveedor *</label>
+              <select
+                name="provider_id"
+                value={form.provider_id || ''}
+                onChange={handleChange}
+                required
+                className="input w-full text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
+              >
+                <option value="">Seleccione proveedor</option>
+                {providers.map((p) => (
+                  <option key={p.id} value={p.id} className="capitalize text-gray-800 dark:text-gray-100">
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Categoría</label>
               <select
                 name="category"
