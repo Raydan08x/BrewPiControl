@@ -10,7 +10,7 @@ import { BrewingTrainView } from './components/brewing/BrewingTrainView';
 import { FermentationView } from './components/fermentation/FermentationView';
 import { Processes } from './components/views/Processes';
 import { Inventory } from './components/views/Inventory';
-import { Providers } from './components/views/Providers';
+import { Providers } from './views/Providers';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
