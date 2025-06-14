@@ -19,9 +19,41 @@ export interface InventoryItem {
 const base = '/api/inventory';
 
 export async function fetchItems(): Promise<InventoryItem[]> {
-  const res = await fetch(`${base}/items`);
-  if (!res.ok) throw new Error('Error al obtener inventario');
-  return res.json();
+  // MOCK para desarrollo local
+  return [
+    {
+      lot_number: 'L001',
+      name: 'Malta Pilsen',
+      category: 'malt',
+      quantity_available: 100,
+      unit: 'kg',
+      location: 'Bodega 1',
+      expiry_date: '2025-12-31',
+      supplier: 'TDCL',
+      manufacturer: 'TDCL',
+      origin: 'importada',
+      safety_stock: 10,
+      min_order_qty: 5,
+      package_size: '25kg',
+      provider_id: 1,
+    },
+    {
+      lot_number: 'L002',
+      name: 'Lúpulo Cascade',
+      category: 'hop',
+      quantity_available: 25,
+      unit: 'kg',
+      location: 'Bodega 2',
+      expiry_date: '2025-09-15',
+      supplier: 'Distriness',
+      manufacturer: 'Distriness',
+      origin: 'nacional',
+      safety_stock: 3,
+      min_order_qty: 1,
+      package_size: '5kg',
+      provider_id: 2,
+    }
+  ];
 }
 
 export async function createItem(data: Partial<InventoryItem>): Promise<InventoryItem> {
