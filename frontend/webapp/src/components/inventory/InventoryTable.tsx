@@ -37,9 +37,10 @@ interface Props {
 
 interface InventoryTableProps extends Props {
   onDelete?: (item: InventoryItem) => void;
+  onEdit?: (item: InventoryItem) => void;
 }
 
-export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete }: InventoryTableProps) {
+export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, onEdit }: InventoryTableProps) {
   const cols: Array<{
     key: InventoryColumnKey;
     header: string;
@@ -85,7 +86,7 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete }: 
           <button
             className="p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/20 text-amber-700 dark:text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
             title="Editar"
-            onClick={() => alert('Editar (no implementado)')}
+            onClick={() => onEdit?.(it)}
           >
             <Edit3 size={16} />
           </button>
