@@ -141,6 +141,8 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
       cell: it => (it.expiry_date ? new Date(it.expiry_date).toLocaleDateString() : '-'),
     },
     { key: 'supplier', header: 'Proveedor', cell: it => it.supplier ?? '-' },
+    { key: 'lead_time_days', header: 'Lead time (días)', cell: it => it.lead_time_days ?? '-' },
+    { key: 'provider_country', header: 'País', cell: it => it.provider_country ?? '-' },
     { key: 'safety_stock', header: 'Stock Seg.', cell: it => it.safety_stock ?? '-' },
     { key: 'min_order_qty', header: 'Ord. Mín.', cell: it => it.min_order_qty ?? '-' },
     { key: 'package_size', header: 'Embalaje', cell: it => it.package_size ?? '-' },
@@ -151,6 +153,17 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
       cell: (it: InventoryItem): ReactNode => (
         <div className="flex gap-2">
           <button
+            className="p-1 rounded hover:bg-amber-700/30 text-amber-300 border border-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            title="Editar"
+            onClick={() => onEdit?.(it)}
+          >
+            <Edit3 size={16} />
+          </button>
+          <button
+            className="p-1 rounded hover:bg-red-700/30 text-red-300 border border-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+            title="Eliminar"
+            onClick={() => onDelete?.(it)}
+          >
             className="p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/20 text-amber-700 dark:text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
             title="Editar"
             onClick={() => onEdit?.(it)}
@@ -233,7 +246,9 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
             const provider = providers.find(p => p.id === it.provider_id);
             const itemWithProvider = {
               ...it,
-              supplier: provider?.name || it.supplier || '-'
+              supplier: provider?.name || it.supplier || '-',
+              provider_country: provider && provider.is_national === false ? provider.country : '-',
+              lead_time_days: it.lead_time_days ?? '-',
             };
             
             return (
