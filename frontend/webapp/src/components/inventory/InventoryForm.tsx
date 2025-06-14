@@ -21,6 +21,7 @@ interface FormState {
   min_order_qty: string;
   package_size: string;
   provider_id: string; // ID del proveedor seleccionado
+  lead_time_days: string; // Nuevo campo para lead time
 }
 
 const CATEGORIES = ['malt', 'hop', 'yeast', 'additive', 'package', 'consumable'];
@@ -38,10 +39,12 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
     min_order_qty: '',
     package_size: '',
     provider_id: '',
+    lead_time_days: '',
   });
   const [loading, setLoading] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [providers, setProviders] = useState<Provider[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
 
   // Cargar proveedores al iniciar el componente
   useEffect(() => {
@@ -60,7 +63,12 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    if (name === 'provider_id') {
+      const prov = providers.find(p => String(p.id) === value);
+      setSelectedProvider(prov || null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -82,6 +90,7 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
         min_order_qty: form.min_order_qty ? parseFloat(form.min_order_qty) : null,
         package_size: form.package_size || null,
         provider_id: form.provider_id ? parseInt(form.provider_id) : null,
+        lead_time_days: form.lead_time_days ? parseInt(form.lead_time_days) : null,
       } as unknown as InventoryItem; // createItem cast internally
       await createItem(payload);
       toast.success('Item creado');
@@ -168,6 +177,29 @@ export function InventoryForm({ onCreated, onCancel }: Props) {
               </option>
             ))}
           </select>
+          {/* Si el proveedor es internacional, mostrar país */}
+          {selectedProvider && selectedProvider.is_national === false && (
+            <div className="mt-2">
+              <label className="block text-xs text-gray-400">País de origen</label>
+              <input
+                value={selectedProvider.country || ''}
+                readOnly
+                className="bg-gray-700 text-gray-200 border border-gray-600 rounded px-3 py-1 w-full cursor-not-allowed"
+              />
+            </div>
+          )}
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1 text-gray-100">Lead time (días)</label>
+          <input
+            name="lead_time_days"
+            type="number"
+            min="0"
+            value={form.lead_time_days}
+            onChange={handleChange}
+            className="bg-gray-800 text-gray-100 border border-gray-700 rounded px-3 py-2 w-full"
+            placeholder="Tiempo de entrega"
+          />
         </div>
       </div>
       {showAdvanced && (
