@@ -10,6 +10,8 @@
 
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { exportInventory } from '../../api/inventory';
+import type { InventoryColumnKey } from '../inventory/InventoryTable';
 import { fetchItems, uploadFile, type InventoryItem } from '../../api/inventory';
 import { InventoryTable } from '../inventory/InventoryTable';
 import { InventoryForm } from '../inventory/InventoryForm';
@@ -34,8 +36,46 @@ export function Inventory() {
   const [lowStock, setLowStock] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  // columnas visibles (persisten en localStorage)
+  const allColumns: InventoryColumnKey[] = [
+    'lot_number',
+    'name',
+    'category',
+    'stock',
+    'manufacturer',
+    'location',
+    'expiry_date',
+    'supplier',
+    'safety_stock',
+    'min_order_qty',
+    'package_size',
+    'origin',
+    'actions',
+  ];
+  const [visibleCols, setVisibleCols] = useState<InventoryColumnKey[]>(() => {
+    const stored = localStorage.getItem('inventory_visible_cols');
+    return stored ? (JSON.parse(stored) as InventoryColumnKey[]) : allColumns;
+  });
+  const [showColMenu, setShowColMenu] = useState(false);
 
   /* ------------------------- Handlers ---------------------- */
+  // Exporta CSV
+  const handleExport = async () => {
+    try {
+      toast.loading('Generando CSV…');
+      const blob = await exportInventory();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'inventario.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.dismiss();
+    } catch (err: any) {
+      toast.dismiss();
+      toast.error(err.message ?? 'Error al exportar');
+    }
+  };
   // Descarga inventario del backend
   const load = async () => {
     try {
@@ -148,6 +188,42 @@ export function Inventory() {
             />
           </label>
 
+          {/* Columnas */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowColMenu(v => !v)}
+              className="btn-secondary"
+            >
+              Columnas
+            </button>
+            {showColMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10 p-2 flex flex-col gap-1">
+                {allColumns.filter(c=>c!=='actions').map(col => (
+                  <label key={col} className="inline-flex items-center gap-2 text-sm capitalize">
+                    <input
+                      type="checkbox"
+                      checked={visibleCols.includes(col)}
+                      onChange={e => {
+                        const next = e.target.checked
+                          ? [...visibleCols, col]
+                          : visibleCols.filter(c => c !== col);
+                        setVisibleCols(next);
+                        localStorage.setItem('inventory_visible_cols', JSON.stringify(next));
+                      }}
+                    />
+                    {col.replace('_', ' ')}
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Exportar */}
+          <button className="btn-secondary" onClick={handleExport}>
+            Exportar CSV
+          </button>
+
           {/* Importar */}
           <label className="inline-flex items-center px-4 py-2 bg-brewery-600 text-white rounded-lg cursor-pointer hover:bg-brewery-700">
             Importar CSV/Excel
@@ -165,7 +241,7 @@ export function Inventory() {
       {loading ? (
         <div className="text-gray-500 dark:text-gray-400 mt-8">Cargando…</div>
       ) : (
-        <InventoryTable items={filtered} lowStock={lowStock} />
+        <InventoryTable items={filtered} lowStock={lowStock} visibleCols={visibleCols} />
       )}
 
       {/* Modal de alta */}
