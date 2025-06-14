@@ -1,6 +1,8 @@
 export interface Provider {
   id: number;
   name: string;
+  is_national?: boolean;
+  country?: string;
   contact?: string;
   address?: string;
   phone?: string;
