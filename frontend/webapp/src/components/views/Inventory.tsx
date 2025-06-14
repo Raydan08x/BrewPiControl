@@ -150,13 +150,13 @@ export function Inventory() {
 
           {/* Categoría */}
           <select
-            className="input w-44 capitalize"
+            className="input w-44 capitalize text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800"
             value={categoryFilter}
             onChange={e => setCategoryFilter(e.target.value as any)}
           >
             <option value="all">Todas las categorías</option>
             {categories.map(cat => (
-              <option key={cat} value={cat} className="capitalize">
+              <option key={cat} value={cat} className="capitalize text-gray-800 dark:text-gray-100">
                 {cat}
               </option>
             ))}
@@ -164,7 +164,7 @@ export function Inventory() {
 
           {/* Proveedor */}
           <select
-            className="input w-52"
+            className="input w-52 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800"
             value={supplierFilter}
             onChange={e => setSupplierFilter(e.target.value)}
           >
@@ -241,7 +241,21 @@ export function Inventory() {
       {loading ? (
         <div className="text-gray-500 dark:text-gray-400 mt-8">Cargando…</div>
       ) : (
-        <InventoryTable items={filtered} lowStock={lowStock} visibleCols={visibleCols} />
+        <InventoryTable
+          items={filtered}
+          lowStock={lowStock}
+          visibleCols={visibleCols}
+          onDelete={async (item) => {
+            if (!window.confirm(`¿Eliminar el ítem "${item.name}"?`)) return;
+            try {
+              await fetch(`/api/inventory/items/${item.id}`, { method: 'DELETE' });
+              toast.success('Ítem eliminado');
+              await load();
+            } catch (err: any) {
+              toast.error(err.message ?? 'Error al eliminar');
+            }
+          }}
+        />
       )}
 
       {/* Modal de alta */}
