@@ -84,7 +84,7 @@ export function InventoryEditModal({ item, isOpen, onClose, onSave }: Props) {
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
           >
-            <X size={20} />
+            <X size={20} text="" />
           </button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
