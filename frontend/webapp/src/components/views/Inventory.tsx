@@ -193,7 +193,7 @@ export function Inventory() {
             <button
               type="button"
               onClick={() => setShowColMenu(v => !v)}
-              className="btn-secondary"
+              className="px-4 py-2 rounded-md font-medium border border-gray-300 dark:border-gray-600 bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 transition-colors"
             >
               Columnas
             </button>
