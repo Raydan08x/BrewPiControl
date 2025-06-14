@@ -13,6 +13,7 @@ export interface InventoryItem {
   safety_stock?: number | null;
   min_order_qty?: number | null;
   package_size?: string | null;
+  provider_id?: string | number; // Añadido para integración proveedor
 }
 
 const base = '/api/inventory';
