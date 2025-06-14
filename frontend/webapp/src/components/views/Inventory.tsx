@@ -142,7 +142,7 @@ export function Inventory() {
         <div className="flex flex-wrap gap-3 items-center">
           {/* Búsqueda */}
           <input
-            className="input w-48 md:w-64"
+            className="input w-48 md:w-64 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Buscar…"
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -150,7 +150,7 @@ export function Inventory() {
 
           {/* Categoría */}
           <select
-            className="input w-44 capitalize text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800"
+            className="input w-44 capitalize text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 placeholder-gray-500 dark:placeholder-gray-400"
             value={categoryFilter}
             onChange={e => setCategoryFilter(e.target.value as any)}
           >
@@ -164,13 +164,13 @@ export function Inventory() {
 
           {/* Proveedor */}
           <select
-            className="input w-52 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800"
+            className="input w-52 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 placeholder-gray-500 dark:placeholder-gray-400"
             value={supplierFilter}
             onChange={e => setSupplierFilter(e.target.value)}
           >
             <option value="all">Todos los proveedores</option>
             {suppliers.map(s => (
-              <option key={s} value={s}>
+              <option key={s} value={s} className="text-gray-800 dark:text-gray-100">
                 {s}
               </option>
             ))}
@@ -181,7 +181,7 @@ export function Inventory() {
             Umbral stock:
             <input
               type="number"
-              className="input w-20"
+              className="input w-20 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
               min={0}
               value={lowStock}
               onChange={e => setLowStock(Number(e.target.value))}
