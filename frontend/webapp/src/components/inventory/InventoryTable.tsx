@@ -33,9 +33,14 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empresa</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ubicación</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caducidad</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedor</th>
+             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Seg.</th>
+             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ord. Mín.</th>
+             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Embalaje</th>
+            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Origen</th>
             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
           </tr>
         </thead>
@@ -58,8 +63,11 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
                     {it.category}
                   </span>
                 </td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
                   {it.quantity_available} {it.unit}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
+                  {it.manufacturer ?? '-'}
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                   {it.location ?? '-'}
@@ -67,8 +75,20 @@ export function InventoryTable({ items, lowStock = 10 }: Props) {
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                   {it.expiry_date ? new Date(it.expiry_date).toLocaleDateString() : '-'}
                 </td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
                   {it.supplier ?? '-'}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
+                  {it.safety_stock ?? '-'}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
+                  {it.min_order_qty ?? '-'}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
+                  {it.package_size ?? '-'}
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-200 capitalize">
+                  {it.origin ?? '-'}
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 flex gap-2">
                   <button className="text-brewery-600 hover:text-brewery-700" title="Editar">
