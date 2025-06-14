@@ -18,6 +18,7 @@ from app.db.session import engine  # noqa: WPS433 (import inside pkg)
 # Importar todos los modelos para que SQLAlchemy registre la metadata
 from app.models import fermentation  # noqa: F401
 from app.inventory import models as inventory_models  # noqa: F401
+from app.providers import models as provider_models  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ async def _create_all(db_engine: aSyncEngine) -> None:
         logger.info("Creando tablas si no existen…")
         await conn.run_sync(fermentation.Base.metadata.create_all)
         await conn.run_sync(inventory_models.Base.metadata.create_all)
+        await conn.run_sync(provider_models.Base.metadata.create_all)
         logger.info("Tablas creadas o ya existentes.")
 
 
