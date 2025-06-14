@@ -1,16 +1,17 @@
 import React from 'react';
 import { 
-  BarChart3, 
-  Gauge, 
-  Zap, 
-  FlaskConical, 
+  BarChart3,
+  Gauge,
+  Zap,
+  FlaskConical,
   Settings,
   Cpu,
   Database,
   Home,
   Flame,
   Beaker,
-  Boxes
+  Boxes,
+  BookOpen
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,10 +21,11 @@ interface SidebarProps {
 
 const menuItems = [
   { id: 'dashboard', name: 'Dashboard', icon: Home },
-  { id: 'brewing', name: 'Tren de Cocción', icon: Flame },
-  { id: 'fermentation', name: 'Fermentación', icon: Beaker },
   { id: 'inventory', name: 'Inventario', icon: Boxes },
   { id: 'providers', name: 'Proveedores', icon: Boxes },
+  { id: 'recipes', name: 'Recetas', icon: BookOpen },
+  { id: 'brewing', name: 'Tren de Cocción', icon: Flame },
+  { id: 'fermentation', name: 'Fermentación', icon: Beaker },
   { id: 'equipment', name: 'Equipos', icon: Zap },
   { id: 'sensors', name: 'Sensores', icon: Gauge },
   { id: 'processes', name: 'Procesos', icon: FlaskConical },
