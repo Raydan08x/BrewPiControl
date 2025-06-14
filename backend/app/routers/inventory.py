@@ -6,6 +6,9 @@ from decimal import Decimal
 from typing import List
 
 from fastapi import APIRouter, Depends, File, HTTPException, Path, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi.responses import StreamingResponse
+import csv
+from io import StringIO
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import get_db
@@ -16,6 +19,59 @@ router = APIRouter(prefix="/inventory", tags=["Inventory"])
 
 
 # ---------------------- REST ----------------------
+
+
+@router.get("/export", response_class=StreamingResponse, name="Export inventory as CSV")
+async def export_csv(db: AsyncSession = Depends(get_db)) -> StreamingResponse:  # noqa: D401
+    """Devuelve todo el inventario como archivo CSV."""
+    items = await inventory_service.list_items(db)
+
+    # CSV in memory
+    buffer = StringIO()
+    writer = csv.writer(buffer)
+
+    # Header matches frontend table ordering
+    header = [
+        "lot_number",
+        "name",
+        "category",
+        "quantity_available",
+        "unit",
+        "manufacturer",
+        "location",
+        "expiry_date",
+        "supplier",
+        "safety_stock",
+        "min_order_qty",
+        "package_size",
+        "origin",
+        "cost",
+        "created_at",
+    ]
+    writer.writerow(header)
+    for it in items:
+        writer.writerow([
+            it.lot_number,
+            it.name,
+            it.category,
+            it.quantity_available,
+            it.unit,
+            it.manufacturer,
+            it.location,
+            it.expiry_date.isoformat() if it.expiry_date else None,
+            it.supplier,
+            it.safety_stock,
+            it.min_order_qty,
+            it.package_size,
+            it.origin,
+            it.cost,
+            it.created_at.isoformat() if it.created_at else None,
+        ])
+
+    buffer.seek(0)
+    return StreamingResponse(buffer, media_type="text/csv", headers={
+        "Content-Disposition": "attachment; filename=inventory_export.csv"
+    })
 
 
 @router.get("/items", response_model=List[ItemDTO])
