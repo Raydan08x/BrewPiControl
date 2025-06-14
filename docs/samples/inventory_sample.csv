@@ -9,3 +9,11 @@ PACK-2025-001,Bottle 330ml,package,10000,u,OwensIllinois,0.08,,Warehouse
 PACK-2025-002,Cap 26mm,package,10000,u,CapsCo,0.02,,Warehouse
 CONS-2025-001,Caustic Soda,consumable,200,kg,ChemCorp,0.95,2028-03-10,Chemical Room
 CONS-2025-002,Peracetic Acid,consumable,150,L,ChemCorp,3.50,2026-11-05,Chemical Room
+MALT-2025-003,Best Pilsen Malt,malt,800,kg,BestMalz,1.30,2026-07-01,Silo C
+MALT-2025-004,Best Vienna Malt,malt,400,kg,BestMalz,1.40,2026-07-01,Silo C
+MALT-2025-005,Best Munich Malt,malt,300,kg,BestMalz,1.35,2026-07-01,Silo C
+MALT-2025-006,Caramel Aromatic,malt,150,kg,Dingemans,1.60,2026-08-01,Silo D
+MALT-2025-007,Chocolate Malt,malt,100,kg,Simpsons,2.10,2026-08-01,Silo D
+MALT-2025-008,Red Active Malt,malt,200,kg,Fulgsang,1.50,2026-09-01,Silo E
+MALT-2025-009,Melanoidin Malt,malt,120,kg,Weyermann,1.65,2026-09-01,Silo E
+MALT-2025-010,Biscuit Malt,malt,90,kg,Dingemans,1.55,2026-10-01,Silo F
