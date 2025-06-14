@@ -9,6 +9,8 @@
   .btn-primary {
     @apply inline-flex items-center px-4 py-2 rounded-md bg-brewery-600 text-white hover:bg-brewery-700 active:bg-brewery-800 disabled:opacity-50 transition-colors;
   }
+  .badge { @apply px-2 py-0.5 rounded-md text-xs font-medium whitespace-nowrap; }
+
   .btn-secondary {
     @apply inline-flex items-center px-4 py-2 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-400 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 disabled:opacity-50 transition-colors;
   }
