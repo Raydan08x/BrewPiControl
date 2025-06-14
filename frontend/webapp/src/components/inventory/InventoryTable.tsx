@@ -201,6 +201,7 @@ export function InventoryTable({ items, lowStock = 10, visibleCols, onDelete, on
           <button 
             onClick={() => setShowColumnSelector(!showColumnSelector)}
             className="bg-gray-800 hover:bg-gray-700 text-gray-100 p-2 rounded border border-gray-700 flex items-center"
+            aria-label="Mostrar selector de columnas"
           >
             <MoreVertical size={16} />
           </button>
