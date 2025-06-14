@@ -8,13 +8,23 @@
   • Incluye carga CSV/Excel y modal para nuevo ítem.
 */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { exportInventory } from '../../api/inventory';
-import type { InventoryColumnKey } from '../inventory/InventoryTable';
-import { fetchItems, uploadFile, type InventoryItem } from '../../api/inventory';
-import { InventoryTable } from '../inventory/InventoryTable';
+import { InventoryTable, type InventoryColumnKey } from '../inventory/InventoryTable';
 import { InventoryForm } from '../inventory/InventoryForm';
+import { InventoryEditModal } from '../inventory/InventoryEditModal';
+import { exportInventory, uploadFile, type InventoryItem } from '../../api/inventory';
+import { useInventory } from '../../hooks/useInventory';
+
+// Add JSX intrinsic elements declaration
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+      button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+    }
+  }
+}
 
 // Catálogo fijo de categorías empleadas por el backend
 const categories: Array<InventoryItem['category']> = [
@@ -29,13 +39,10 @@ const categories: Array<InventoryItem['category']> = [
 
 export function Inventory() {
   /* ------------------------- State ------------------------- */
-  const [items, setItems] = useState<InventoryItem[]>([]);
   const [search, setSearch] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<'all' | InventoryItem['category']>('all');
-  const [supplierFilter, setSupplierFilter] = useState<string>('all');
-  const [lowStock, setLowStock] = useState(10);
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [supplierFilter, setSupplierFilter] = useState('all');
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
   // columnas visibles (persisten en localStorage)
   const allColumns: InventoryColumnKey[] = [
     'lot_number',
@@ -57,6 +64,11 @@ export function Inventory() {
     return stored ? (JSON.parse(stored) as InventoryColumnKey[]) : allColumns;
   });
   const [showColMenu, setShowColMenu] = useState(false);
+  const [lowStock, setLowStock] = useState(10);
+  const [editItem, setEditItem] = useState<InventoryItem | null>(null);
+
+  // Usar hook de inventario
+  const { items, loading, refresh: load, deleteItem: deleteInventoryItem, updateItem: updateInventoryItem } = useInventory();
 
   /* ------------------------- Handlers ---------------------- */
   // Exporta CSV
@@ -74,18 +86,6 @@ export function Inventory() {
     } catch (err: any) {
       toast.dismiss();
       toast.error(err.message ?? 'Error al exportar');
-    }
-  };
-  // Descarga inventario del backend
-  const load = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchItems();
-      setItems(data);
-    } catch (err: any) {
-      toast.error(err.message ?? 'Error al cargar inventario');
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -189,35 +189,34 @@ export function Inventory() {
           </label>
 
           {/* Columnas */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setShowColMenu(v => !v)}
-              className="px-4 py-2 rounded-md font-medium border border-gray-300 dark:border-gray-600 bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 transition-colors"
-            >
-              Columnas
-            </button>
-            {showColMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10 p-2 flex flex-col gap-1">
-                {allColumns.filter(c=>c!=='actions').map(col => (
-                  <label key={col} className="inline-flex items-center gap-2 text-sm capitalize">
-                    <input
-                      type="checkbox"
-                      checked={visibleCols.includes(col)}
-                      onChange={e => {
-                        const next = e.target.checked
-                          ? [...visibleCols, col]
-                          : visibleCols.filter(c => c !== col);
-                        setVisibleCols(next);
-                        localStorage.setItem('inventory_visible_cols', JSON.stringify(next));
-                      }}
-                    />
-                    {col.replace('_', ' ')}
-                  </label>
-                ))}
-              </div>
-            )}
-          </div>
+          <button className="btn btn-ghost" onClick={() => setShowColMenu((v: boolean) => !v)} title="Mostrar/ocultar columnas">
+        Columnas ▾
+      </button>
+      {showColMenu && (
+        <div className="absolute right-0 top-full bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg z-10 border border-gray-300 dark:border-gray-600 text-sm mt-1">
+          {allColumns.map((c: InventoryColumnKey) => (
+            <label className="block mb-1" key={c}>
+              <input
+                type="checkbox"
+                className="mr-1"
+                checked={visibleCols.includes(c)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const updated = [...visibleCols, c];
+                    setVisibleCols(updated);
+                    localStorage.setItem('inventory_visible_cols', JSON.stringify(updated));
+                  } else {
+                    const updated = visibleCols.filter((col: InventoryColumnKey) => col !== c);
+                    setVisibleCols(updated);
+                    localStorage.setItem('inventory_visible_cols', JSON.stringify(updated));
+                  }
+                }}
+              />
+              {c}
+            </label>
+          ))}
+        </div>
+      )}
 
           {/* Exportar */}
           <button className="btn-secondary" onClick={handleExport}>
@@ -245,16 +244,15 @@ export function Inventory() {
           items={filtered}
           lowStock={lowStock}
           visibleCols={visibleCols}
-          onDelete={async (item) => {
+          onDelete={async (item: InventoryItem) => {
             if (!window.confirm(`¿Eliminar el ítem "${item.name}"?`)) return;
             try {
-              await fetch(`/api/inventory/items/${item.id}`, { method: 'DELETE' });
-              toast.success('Ítem eliminado');
-              await load();
-            } catch (err: any) {
-              toast.error(err.message ?? 'Error al eliminar');
+              await deleteInventoryItem(item.lot_number);
+            } catch (err) {
+              // El error ya se maneja en el hook
             }
           }}
+          onEdit={(item: InventoryItem) => setEditItem(item)}
         />
       )}
 
@@ -272,6 +270,21 @@ export function Inventory() {
           </div>
         </div>
       )}
+
+      {/* Modal de edición */}
+      <InventoryEditModal
+        item={editItem}
+        isOpen={editItem !== null}
+        onClose={() => setEditItem(null)}
+        onSave={async (id: string | number, data: Partial<InventoryItem>) => {
+          try {
+            await updateInventoryItem(id, data);
+            setEditItem(null);
+          } catch (err) {
+            // El error ya se maneja en el hook
+          }
+        }}
+      />
     </div>
   );
 }
