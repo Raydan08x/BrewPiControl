@@ -9,5 +9,7 @@ class ProviderDTO(BaseModel):
     phone: Optional[str]
     email: Optional[str]
     notes: Optional[str]
+    is_national: Optional[bool]
+    country: Optional[str]
     class Config:
         orm_mode = True
