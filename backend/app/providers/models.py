@@ -1,7 +1,7 @@
 """Modelo ORM para proveedores de materias primas."""
 from __future__ import annotations
 import datetime as dt
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -15,4 +15,6 @@ class Provider(Base):
     phone = Column(String, nullable=True)
     email = Column(String, nullable=True)
     notes = Column(String, nullable=True)
+    is_national = Column(Boolean, nullable=True)
+    country = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=dt.datetime.utcnow)
