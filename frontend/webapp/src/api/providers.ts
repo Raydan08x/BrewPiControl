@@ -13,11 +13,24 @@ export interface Provider {
 const base = '/api/providers';
 
 export async function fetchProviders(search?: string): Promise<Provider[]> {
-  // Mock de proveedores por defecto SIEMPRE en desarrollo local
-  return [
-    { id: 1, name: 'TDCL (the drink craft labs)', is_national: false, country: 'USA' },
-    { id: 2, name: 'Distriness', is_national: true, country: 'Colombia' },
-  ];
+  try {
+    const url = search ? `${base}/?q=${encodeURIComponent(search)}` : base;
+    const res = await fetch(url);
+    
+    if (!res.ok) {
+      throw new Error(`Error al obtener proveedores: ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching providers:', error);
+    // Fallback a datos de prueba si hay un error
+    return [
+      { id: 1, name: 'TDCL (the drink craft labs)', is_national: false, country: 'USA' },
+      { id: 2, name: 'Distriness', is_national: true, country: 'Colombia' },
+    ];
+  }
 }
 
 export async function addProvider(data: Omit<Provider, 'id'>): Promise<Provider> {
